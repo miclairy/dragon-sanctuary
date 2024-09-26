@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Dragon {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  color         String
+  terrain       String
+  fireBreather  Boolean
+  waterBreather Boolean
+  eyeColor      String
+  armored       Boolean
+  horns         Int
+  fins          Boolean
+  feathers      Boolean
+  wings         Boolean
+  legs          Int
+  imageKey      String?
+  createdAt     DateTime @default(now())
+
+  @@index(slug)
+}
