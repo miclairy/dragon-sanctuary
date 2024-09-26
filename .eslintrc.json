@@ -1,3 +1,38 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "root": true,
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:jsx-no-leaked-values/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": ".",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "plugins": [
+    "prettier",
+    "jsx-no-leaked-values",
+    "react-refresh"
+  ],
+  "rules": {
+    "react-refresh/only-export-components": "warn",
+    "import/no-default-export": "warn",
+    "no-console": [
+      "error"
+    ],
+    "no-nested-ternary": [
+      "error"
+    ],
+    "react/jsx-boolean-value": ["error"],
+    "react/jsx-one-expression-per-line": ["off"],
+    "react/jsx-curly-brace-presence": ["error", { "props": "never" }]
+  }
 }
