@@ -1,13 +1,14 @@
 import { InputHTMLAttributes } from 'react';
 import { UseFormRegister } from 'react-hook-form';
-import { Dragon } from '.prisma/client';
+import { Prisma } from '.prisma/client';
+import DragonCreateInput = Prisma.DragonCreateInput;
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    name: string;
-    register: UseFormRegister<Dragon>;
+    name: keyof DragonCreateInput;
+    register: UseFormRegister<DragonCreateInput>;
 }
 
-export const LabelInput = ({ name, required, register, ...rest }: Props) => {
+export const LabelInput = ({ name, required, register, type, ...rest }: Props) => {
     return (
         <div>
             <label htmlFor={`id_${name}`}>
@@ -18,7 +19,13 @@ export const LabelInput = ({ name, required, register, ...rest }: Props) => {
                         .join(' ')}
                 :
             </label>
-            <input {...rest} {...register(name, { required: !!required })} name={name} id={`id_${name}`} />
+            <input
+                {...rest}
+                type={type}
+                {...register(name, { required: !!required, valueAsNumber: type === 'number', min: 0 })}
+                name={name}
+                id={`id_${name}`}
+            />
         </div>
     );
 };
