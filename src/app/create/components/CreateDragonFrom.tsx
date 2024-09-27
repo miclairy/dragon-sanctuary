@@ -3,6 +3,7 @@ import { LabelInput } from '@/app/create/components/LabelInput';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
 import { useState } from 'react';
+import WhimsySpinner from '@/app/create/components/WhimsySpinner';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const CreateDragonFrom = () => {
@@ -54,6 +55,11 @@ export const CreateDragonFrom = () => {
                     disabled={loading}
                     className="text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple"
                 />
+                {loading && (
+                    <div className=" min-h-screen ">
+                        <WhimsySpinner size="lg" />
+                    </div>
+                )}
             </form>
 
             {imageUrl && (
