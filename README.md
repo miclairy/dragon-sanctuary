@@ -47,8 +47,30 @@ Run your git UI application from your terminal to inherit the environment.
 ## Design decisions
 
 Nextjs
+
+* Learn how App router and server side components work
+* Popular
+* Could have used Remix but NextJs is more popular and I have used it in other projects
+
 Prisma
+
+* Easy Intergration with vercel
+* Abstracts away the database
+
 React Form hook
+
+* no dependencies
+* uses html standards
+    * formik makes it really difficult to watch form values and it is slow
+
 Zod
-TS
+
 Tailwind
+
+* Popular wanted to try
+* Wanted a lot of custom CSS
+* Drawbacks are messy long styles but other UI libaries are more difficult to customise
+
+Pino for logging
+
+* simplicity and works both on client and server logging

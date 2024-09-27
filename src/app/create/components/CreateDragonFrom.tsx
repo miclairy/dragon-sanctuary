@@ -23,23 +23,22 @@ export const CreateDragonFrom = () => {
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
             <form
                 onSubmit={handleSubmit((data) => {
-                    console.log('pancake', data);
                     void createDragon(data);
                 })}
                 className="flex flex-col gap-2 pl-2"
             >
-                <LabelInput register={register} name="name" required type="text" />
-                <LabelInput register={register} name="color" required type="text" />
-                <LabelInput register={register} name="eyeColor" required type="text" />
-                <LabelInput register={register} name="legs" required type="number" />
-                <LabelInput register={register} name="fireBreather" type="checkbox" />
-                <LabelInput register={register} name="waterBreather" type="checkbox" />
-                <LabelInput register={register} name="armored" type="checkbox" />
-                <LabelInput register={register} name="horns" required type="number" />
-                <LabelInput register={register} name="fins" type="checkbox" />
-                <LabelInput register={register} name="feathers" type="checkbox" />
-                <LabelInput register={register} name="wings" type="checkbox" />
-                <LabelInput register={register} name="terrain" required type="text" />
+                <LabelInput register={register} errors={errors} name="name" required type="text" />
+                <LabelInput register={register} errors={errors} name="color" required type="text" />
+                <LabelInput register={register} errors={errors} name="eyeColor" required type="text" />
+                <LabelInput register={register} errors={errors} name="legs" required type="number" />
+                <LabelInput register={register} errors={errors} name="fireBreather" type="checkbox" />
+                <LabelInput register={register} errors={errors} name="waterBreather" type="checkbox" />
+                <LabelInput register={register} errors={errors} name="armored" type="checkbox" />
+                <LabelInput register={register} errors={errors} name="horns" required type="number" />
+                <LabelInput register={register} errors={errors} name="fins" type="checkbox" />
+                <LabelInput register={register} errors={errors} name="feathers" type="checkbox" />
+                <LabelInput register={register} errors={errors} name="wings" type="checkbox" />
+                <LabelInput register={register} errors={errors} name="terrain" required type="text" />
 
                 <input
                     type="submit"
