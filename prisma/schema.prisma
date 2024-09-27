@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Dragon {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  color         String
+  terrain       String
+  fireBreather  Boolean
+  waterBreather Boolean
+  eyeColor      String
+  armored       Boolean
+  horns         Int
+  fins          Boolean
+  feathers      Boolean
+  wings         Boolean
+  legs          Int
+  imageKey      String?
+  createdAt     DateTime @default(now())
+
+  @@index(slug)
+}
