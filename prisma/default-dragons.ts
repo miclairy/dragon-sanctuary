@@ -16,5 +16,6 @@ export const defaultDragons: DragonCreateInput[] = [
         feathers: false,
         wings: true,
         legs: 4,
+        imageKey: 'img-hk6W3YFem90GyKIy82eFDAD3',
     },
 ];

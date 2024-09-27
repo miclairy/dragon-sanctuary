@@ -10,6 +10,7 @@ export const getCachedDragons = cache(async () =>
             slug: true,
             name: true,
             id: true,
+            imageKey: true,
         },
     }),
 );

@@ -15,7 +15,7 @@ export const upload = async (imageKey: string, url: string) => {
 
         const command = new PutObjectCommand({
             Bucket,
-            Key: imageKey,
+            Key: `${imageKey}.png`,
             Body: buffer,
             // ContentEncoding: 'base64',
             ContentType: 'image/png',
