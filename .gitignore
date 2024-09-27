@@ -39,3 +39,6 @@ next-env.d.ts
 .vscode
 
 .env
+
+# local db
+/prisma/dev.db

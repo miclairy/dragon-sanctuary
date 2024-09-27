@@ -6,17 +6,17 @@ import { revalidatePath } from 'next/cache';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const createDragon = async (data: DragonCreateInput) => {
-    console.log('pancake', data);
-    await prisma.dragon.create({
-        data: {
-            ...data,
-            slug: data.name.replace(/\s+/g, '-').toLowerCase(),
-            horns: data.horns,
-            legs: data.legs,
-        } as Dragon,
-    });
-
-    revalidatePath('/dragons'); // make urls consts pancake
+    try {
+        await prisma.dragon.create({
+            data: {
+                ...data,
+                slug: data.name.replace(/\s+/g, '-').toLowerCase(),
+                horns: data.horns,
+                legs: data.legs,
+            } as Dragon,
+        });
+        revalidatePath('/dragons'); // make urls consts pancake
+    } catch (e) {}
 };
 
 export const addImageKey = async (id: string, imageKey: string) => {
