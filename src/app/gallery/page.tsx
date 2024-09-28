@@ -6,7 +6,7 @@ import { s3BucketUrl } from '@/app/constants';
 export default async function Gallery() {
     const dragons = await getCachedDragons();
 
-    // TODO: optimise reading from db and loading the images
+    // TODO: pancake optimise reading from db and loading the images
     return (
         <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10">
             {dragons.map((dragon) => (
