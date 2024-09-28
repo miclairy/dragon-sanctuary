@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { LabelInput } from '@/app/create/components/LabelInput';
-import { createDragon } from '@/app/create/actions/postDragon';
+import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
+import { useState } from 'react';
+import WhimsySpinner from '@/app/create/components/WhimsySpinner';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const CreateDragonFrom = () => {
@@ -14,16 +16,22 @@ export const CreateDragonFrom = () => {
             legs: 4,
             wings: true,
             terrain: 'Sky',
-            horns: 2, // todo pancake fix numbers
+            horns: 2,
         },
     });
+
+    const [imageUrl, setImageUrl] = useState<string>();
+    const [loading, setLoading] = useState(false);
     // pancake todo use the watch api to visually display a dragon representation
 
     return (
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
             <form
-                onSubmit={handleSubmit((data) => {
-                    void createDragon(data);
+                onSubmit={handleSubmit(async (data) => {
+                    setLoading(true);
+                    const imageUrl = await generateDragon(data);
+                    setImageUrl(imageUrl);
+                    setLoading(false);
                 })}
                 className="flex flex-col gap-2 pl-2"
             >
@@ -44,9 +52,21 @@ export const CreateDragonFrom = () => {
                     type="submit"
                     id="generate-btn"
                     value="Generate"
+                    disabled={loading}
                     className="text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple"
                 />
+                {loading && (
+                    <div className=" min-h-screen ">
+                        <WhimsySpinner size="lg" />
+                    </div>
+                )}
             </form>
+
+            {imageUrl && (
+                <div>
+                    <img src={imageUrl} alt="dragon" width={1024} height={1024}></img>
+                </div>
+            )}
         </div>
     );
 };
