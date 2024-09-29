@@ -4,6 +4,7 @@ import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
 import { useState } from 'react';
 import WhimsySpinner from '@/app/ui/WhimsySpinner';
+import { ErrorBox } from '@/app/ui/ErrorBox';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const CreateDragonFrom = () => {
@@ -22,6 +23,7 @@ export const CreateDragonFrom = () => {
 
     const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string>();
     // pancake todo use the watch api to visually display a dragon representation or fun quiz like UI
     // pancake todo use nextjs Image component
 
@@ -30,9 +32,14 @@ export const CreateDragonFrom = () => {
             <form
                 onSubmit={handleSubmit(async (data) => {
                     setLoading(true);
-                    const imageUrl = await generateDragon(data);
-                    setImageUrl(imageUrl);
-                    setLoading(false);
+                    try {
+                        const imageUrl = await generateDragon(data);
+                        setImageUrl(imageUrl);
+                    } catch (e) {
+                        setError(e.message);
+                    } finally {
+                        setLoading(false);
+                    }
                 })}
                 className="flex flex-col gap-2 pl-2"
             >
@@ -56,18 +63,17 @@ export const CreateDragonFrom = () => {
                     disabled={loading}
                     className="text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple"
                 />
+            </form>
+
+            <div>
+                {imageUrl && <img src={imageUrl} alt="dragon" width={1024} height={1024} />}
                 {loading && (
                     <div className=" min-h-screen ">
                         <WhimsySpinner size="lg" />
                     </div>
                 )}
-            </form>
-
-            {imageUrl && (
-                <div>
-                    <img src={imageUrl} alt="dragon" width={1024} height={1024} />
-                </div>
-            )}
+                {error && <ErrorBox message={error}></ErrorBox>}
+            </div>
         </div>
     );
 };

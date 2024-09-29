@@ -25,6 +25,7 @@ export const getCachedDragons = cache(async (cursorIndex?: number, skip = 0) => 
         });
     } catch (e) {
         logger.error(e);
+        throw new Error('Database Error: Failed to get dragons');
     }
 });
 
@@ -33,5 +34,6 @@ export const getDragonCount = async () => {
         return prisma.dragon.count();
     } catch (e) {
         logger.error(e);
+        throw new Error('Database Error: Failed to count dragons');
     }
 };
