@@ -11,8 +11,7 @@
     "test": "jest",
     "prepare": "husky",
     "postinstall": "prisma generate && prisma migrate deploy",
-    "migrate": "prisma migrate dev",
-    "postmigrate": "npx @snaplet/seed sync"
+    "migrate": "prisma migrate dev"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed/seed.ts"

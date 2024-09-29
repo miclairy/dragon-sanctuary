@@ -54,7 +54,7 @@ Nextjs
 
 Prisma
 
-* Easy Intergration with vercel
+* Easy Integration with vercel
 * Abstracts away the database
 
 React Form hook
