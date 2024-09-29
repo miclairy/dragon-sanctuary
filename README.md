@@ -35,7 +35,7 @@ npx prisma db push
 Dev DB Migrations to track the changes
 
 ```bash
-npx prisma migrate dev
+npm run migrate
 ```
 
 ### Husky pre-commit hook not being called ?
@@ -54,7 +54,7 @@ Nextjs
 
 Prisma
 
-* Easy Intergration with vercel
+* Easy Integration with vercel
 * Abstracts away the database
 
 React Form hook

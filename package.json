@@ -10,10 +10,11 @@
     "lint": "next lint",
     "test": "jest",
     "prepare": "husky",
-    "postinstall": "prisma generate && prisma migrate deploy"
+    "postinstall": "prisma generate && prisma migrate deploy",
+    "migrate": "prisma migrate dev"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "npx tsx prisma/seed/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.658.1",
@@ -28,9 +29,12 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
+    "react-intersection-observer": "^9.13.1",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@snaplet/copycat": "^5.0.0",
+    "@snaplet/seed": "^0.98.0",
     "@types/node": "^20.16.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -54,5 +58,8 @@
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
+  },
+  "@snaplet/seed": {
+    "config": "prisma/seed/seed.config.ts"
   }
 }

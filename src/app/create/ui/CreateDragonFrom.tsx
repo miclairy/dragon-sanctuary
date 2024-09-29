@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { LabelInput } from '@/app/create/components/LabelInput';
+import { LabelInput } from '@/app/create/ui/LabelInput';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
 import { useState } from 'react';
-import WhimsySpinner from '@/app/create/components/WhimsySpinner';
+import WhimsySpinner from '@/app/ui/WhimsySpinner';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const CreateDragonFrom = () => {
@@ -22,7 +22,8 @@ export const CreateDragonFrom = () => {
 
     const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
-    // pancake todo use the watch api to visually display a dragon representation
+    // pancake todo use the watch api to visually display a dragon representation or fun quiz like UI
+    // pancake todo use nextjs Image component
 
     return (
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
@@ -64,7 +65,7 @@ export const CreateDragonFrom = () => {
 
             {imageUrl && (
                 <div>
-                    <img src={imageUrl} alt="dragon" width={1024} height={1024}></img>
+                    <img src={imageUrl} alt="dragon" width={1024} height={1024} />
                 </div>
             )}
         </div>
