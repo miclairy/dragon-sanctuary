@@ -1,6 +1,7 @@
 import prisma from '@/lib/db';
 import Image from 'next/image';
 import { s3BucketUrl } from '@/app/constants';
+import { notFound } from 'next/navigation';
 
 export default async function DragonDetail({ params }: { params: { index: string; slug: string } }) {
     const dragon = await prisma.dragon.findUnique({
@@ -8,7 +9,7 @@ export default async function DragonDetail({ params }: { params: { index: string
     });
 
     if (!dragon) {
-        return null; // pancake make 404 page
+        return notFound();
     }
 
     return (

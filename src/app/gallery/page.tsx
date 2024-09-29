@@ -2,16 +2,25 @@ import { getCachedDragons, getDragonCount } from '@/app/gallery/actions/getCache
 import { Suspense } from 'react';
 import { CardSkeleton } from '@/app/gallery/ui/CardSkeleton';
 import { DragonList } from '@/app/gallery/ui/DragonList';
+import { LIMIT } from '@/app/constants';
+import { notFound } from 'next/navigation';
 
-export default async function Gallery() {
-    const dragons = await getCachedDragons(0);
+const Gallery = async ({ params }: { params: { page: string } }) => {
     const count = await getDragonCount();
-    if (!dragons || !count) {
+    if (!count) {
         return null;
     }
+    const page = parseInt(params.page);
+    const dragons = await getCachedDragons(0, page ? (page - 1) * LIMIT : 0);
+    if (!dragons || !dragons.length) {
+        return notFound();
+    }
+
     return (
         <Suspense fallback={<CardSkeleton />}>
             <DragonList initialDragons={dragons} count={count} />
         </Suspense>
     );
-}
+};
+
+export default Gallery;

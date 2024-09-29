@@ -2,13 +2,13 @@
 import prisma from '@/lib/db';
 import { unstable_cache as cache } from 'next/cache';
 import logger from '../../../../pino/logger';
+import { LIMIT } from '@/app/constants';
 
-const LIMIT = 1;
-
-export const getCachedDragons = cache(async (cursorIndex) => {
+export const getCachedDragons = cache(async (cursorIndex: number, skip = 0) => {
     try {
         return await prisma.dragon.findMany({
             take: LIMIT,
+            skip,
             cursor: {
                 index: cursorIndex,
             },
