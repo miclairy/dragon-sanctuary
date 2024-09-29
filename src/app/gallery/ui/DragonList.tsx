@@ -10,7 +10,7 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
     const { ref, inView } = useInView();
 
     const loadNext = useCallback(async () => {
-        const cursorIndex = dragons[dragons.length - 1].index + 1;
+        const cursorIndex = dragons[dragons.length - 1].index - 1;
         const newSet = await getCachedDragons(cursorIndex);
         if (!!newSet) {
             setDragons([...dragons, ...newSet]);
