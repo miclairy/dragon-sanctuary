@@ -11,6 +11,7 @@ const Gallery = async ({ params }: { params: { page: string } }) => {
         return null;
     }
     const page = parseInt(params.page);
+
     const dragons = await getCachedDragons(count, page ? (page - 1) * LIMIT : 0);
     if (!dragons || !dragons.length) {
         return notFound();

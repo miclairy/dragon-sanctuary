@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateDragonFrom } from '@/app/create/ui/CreateDragonFrom';
+import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 
 export default function Create() {
     return (
@@ -11,7 +11,7 @@ export default function Create() {
                 monsters. ❤️
             </h3>
             <p>Powered By openAI</p>
-            <CreateDragonFrom />
+            <CreateDragonForm />
         </div>
     );
 }
