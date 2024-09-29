@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { LabelInput } from '@/app/create/components/LabelInput';
+import { LabelInput } from '@/app/create/ui/LabelInput';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
 import { useState } from 'react';
-import WhimsySpinner from '@/app/create/components/WhimsySpinner';
+import WhimsySpinner from '@/app/ui/WhimsySpinner';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const CreateDragonFrom = () => {

@@ -1,4 +1,4 @@
-import WhimsySpinner from '@/app/create/components/WhimsySpinner';
+import WhimsySpinner from '@/app/ui/WhimsySpinner';
 
 export const CardSkeleton = () => {
     return (

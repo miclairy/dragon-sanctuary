@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateDragonFrom } from '@/app/create/components/CreateDragonFrom';
+import { CreateDragonFrom } from '@/app/create/ui/CreateDragonFrom';
 
 export default function Create() {
     return (

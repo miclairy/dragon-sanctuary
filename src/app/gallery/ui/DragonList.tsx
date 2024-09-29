@@ -1,11 +1,11 @@
 'use client';
-import { Card } from '@/app/gallery/Card';
 import { DisplayDragon } from '@/app/gallery/model';
 import { getCachedDragons } from '@/app/gallery/actions/getCached';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { Card } from '@/app/gallery/ui/Card';
 
-export const DragonList = ({ initialDragons }: { initialDragons: DisplayDragon[] }) => {
+export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayDragon[]; count: number }) => {
     const [dragons, setDragons] = useState(initialDragons);
     const { ref, inView } = useInView();
 
@@ -28,7 +28,7 @@ export const DragonList = ({ initialDragons }: { initialDragons: DisplayDragon[]
             {dragons.map((dragon) => (
                 <Card {...dragon} key={dragon.id}></Card>
             ))}
-            <div ref={ref}> More fire power below....</div>
+            {count > dragons.length && <div ref={ref}> More fire power below....</div>}
         </div>
     );
 };

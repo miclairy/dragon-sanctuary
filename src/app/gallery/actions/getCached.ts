@@ -27,3 +27,11 @@ export const getCachedDragons = cache(async (cursorIndex) => {
         logger.error(e);
     }
 });
+
+export const getDragonCount = async () => {
+    try {
+        return prisma.dragon.count();
+    } catch (e) {
+        logger.error(e);
+    }
+};
