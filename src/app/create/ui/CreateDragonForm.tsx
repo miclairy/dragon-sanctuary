@@ -5,9 +5,10 @@ import { Prisma } from '.prisma/client';
 import { useState } from 'react';
 import WhimsySpinner from '@/app/ui/WhimsySpinner';
 import { ErrorBox } from '@/app/ui/ErrorBox';
+import clsx from 'clsx';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
-export const CreateDragonFrom = () => {
+export const CreateDragonForm = () => {
     const {
         register,
         formState: { errors },
@@ -61,7 +62,11 @@ export const CreateDragonFrom = () => {
                     id="generate-btn"
                     value="Generate"
                     disabled={loading}
-                    className="text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple"
+                    className={clsx('text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple', {
+                        'bg-pinkLight': loading,
+                        'hover:bg-pinkLight': loading,
+                        'text-gray-400': loading,
+                    })}
                 />
             </form>
 
