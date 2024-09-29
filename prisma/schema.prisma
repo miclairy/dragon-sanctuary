@@ -13,8 +13,9 @@ datasource db {
 
 model Dragon {
   id            String   @id @default(cuid())
+  index         Int      @unique @default(autoincrement())
   name          String
-  slug          String   @unique
+  slug          String
   color         String
   terrain       String
   fireBreather  Boolean

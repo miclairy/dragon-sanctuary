@@ -35,7 +35,7 @@ npx prisma db push
 Dev DB Migrations to track the changes
 
 ```bash
-npx prisma migrate dev
+npm run migrate
 ```
 
 ### Husky pre-commit hook not being called ?

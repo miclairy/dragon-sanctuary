@@ -1,27 +1,17 @@
-import Link from 'next/link';
-import { getCachedDragons } from '@/app/gallery/getCached';
-import Image from 'next/image';
-import { s3BucketUrl } from '@/app/constants';
+import { getCachedDragons } from '@/app/gallery/actions/getCached';
+import { Suspense } from 'react';
+import { CardSkeleton } from '@/app/gallery/CardSkeleton';
+import { DragonList } from '@/app/gallery/DragonList';
 
 export default async function Gallery() {
-    const dragons = await getCachedDragons();
-
-    // TODO: pancake optimise reading from db and loading the images
+    const dragons = await getCachedDragons(0);
+    if (!dragons) {
+        return null;
+    }
+    // TODO: pancake loading the images
     return (
-        <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10">
-            {dragons.map((dragon) => (
-                <Link href={`dragon/${dragon.slug}`} key={dragon.id}>
-                    {dragon.name}
-                    {dragon.imageKey && (
-                        <Image
-                            src={`${s3BucketUrl}${dragon.imageKey}.png`}
-                            width="1024"
-                            height="1024"
-                            alt={dragon.name}
-                        />
-                    )}
-                </Link>
-            ))}
-        </div>
+        <Suspense fallback={<CardSkeleton />}>
+            <DragonList initialDragons={dragons} />
+        </Suspense>
     );
 }

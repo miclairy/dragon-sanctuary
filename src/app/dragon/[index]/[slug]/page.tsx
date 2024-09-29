@@ -2,9 +2,9 @@ import prisma from '@/lib/db';
 import Image from 'next/image';
 import { s3BucketUrl } from '@/app/constants';
 
-export default async function DragonDetail({ params }: { params: { slug: string } }) {
+export default async function DragonDetail({ params }: { params: { index: string; slug: string } }) {
     const dragon = await prisma.dragon.findUnique({
-        where: { slug: params.slug },
+        where: { index: parseInt(params.index) },
     });
 
     if (!dragon) {

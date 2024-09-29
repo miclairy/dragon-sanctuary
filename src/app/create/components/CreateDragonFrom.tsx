@@ -22,7 +22,8 @@ export const CreateDragonFrom = () => {
 
     const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
-    // pancake todo use the watch api to visually display a dragon representation
+    // pancake todo use the watch api to visually display a dragon representation or fun quiz like UI
+    // pancake todo use nextjs Image component
 
     return (
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
@@ -64,7 +65,7 @@ export const CreateDragonFrom = () => {
 
             {imageUrl && (
                 <div>
-                    <img src={imageUrl} alt="dragon" width={1024} height={1024}></img>
+                    <img src={imageUrl} alt="dragon" width={1024} height={1024} />
                 </div>
             )}
         </div>
