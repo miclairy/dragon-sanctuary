@@ -24,11 +24,13 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
     }, [loadNext, inView]);
 
     return (
-        <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10">
-            {dragons.map((dragon) => (
-                <Card {...dragon} key={dragon.id}></Card>
-            ))}
-            {count > dragons.length && <div ref={ref}> More fire power below....</div>}
+        <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10 ">
+            <div className="flex flex-wrap justify-center gap-6 pt-4">
+                {dragons.map((dragon) => (
+                    <Card {...dragon} key={dragon.id}></Card>
+                ))}
+                {count > dragons.length && <div ref={ref}> More fire power below....</div>}
+            </div>
         </div>
     );
 };

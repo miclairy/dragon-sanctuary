@@ -16,7 +16,13 @@ export default async function DragonDetail({ params }: { params: { index: string
         <div className="lg-mx-20 bg-purple-light p-2 rounded-lg mb-10">
             <p>{dragon.name}</p>
             {dragon.imageKey && (
-                <Image src={`${s3BucketUrl}${dragon.imageKey}.png`} width="1024" height="1024" alt={dragon.name} />
+                <Image
+                    priority
+                    src={`${s3BucketUrl}${dragon.imageKey}.png`}
+                    width="1024"
+                    height="1024"
+                    alt={dragon.name}
+                />
             )}
         </div>
     );
