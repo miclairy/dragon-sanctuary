@@ -26,7 +26,7 @@ describe('Generate Dragon', () => {
     const mockUrl = 'mockUrl';
     const mockKey = 'mockKey';
     beforeAll(() => {
-        process.env = Object.assign(process.env, { MOCK_OPENAPI: 'false' });
+        process.env = Object.assign(process.env, { NODE_ENV: 'production' });
     });
 
     it('generates an imageUrl', async () => {
@@ -38,7 +38,7 @@ describe('Generate Dragon', () => {
     });
 
     it('gives an default imageUrl', async () => {
-        process.env = Object.assign(process.env, { MOCK_OPENAPI: 'true' });
+        process.env = Object.assign(process.env, { NODE_ENV: 'development' });
 
         const result = await generateDragon(dragon);
 
