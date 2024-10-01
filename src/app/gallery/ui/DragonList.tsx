@@ -24,6 +24,9 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
         }
     }, [loadNext, inView]);
 
+    // todo : pancake add proirity to initial load
+    // todo : add image cdn with optimized image sizes
+    // todo : convert images to webp
     return (
         <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10 ">
             <div className="flex flex-wrap justify-center gap-6 pt-4">
