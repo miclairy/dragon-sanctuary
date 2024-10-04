@@ -24,7 +24,7 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
         }
     }, [loadNext, inView]);
 
-    // todo : pancake add proirity to initial load
+    // todo : pancake add priority to initial load
     // todo : add image cdn with optimized image sizes
     // todo : convert images to webp
     return (
