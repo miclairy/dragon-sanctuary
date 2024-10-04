@@ -4,7 +4,7 @@ Built with NextJs framework on the app router.
 
 ## To run
 
-First: Copy the env.example to .env and adjust the postgres url to your one.
+First: Copy the env.example to .env and adjust the postgres url to your one. Add the values for open ai and aws
 
 Second: Run the development server:
 

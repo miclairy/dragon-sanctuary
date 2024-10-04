@@ -19,6 +19,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 14
     environment: 'test'
+    env:
+      POSTGRES_URL: "postgresql://postgres@localhost:5432/test?schema=public"
+      POSTGRES_PRISMA_URL: "postgresql://postgres@localhost:5432/test?schema=public"
+      POSTGRES_URL_NO_SSL: "postgresql://postgres@localhost:5432/test?schema=public"
+      POSTGRES_URL_NON_POOLING: "postgresql://postgres@localhost:5432/test?schema=public"
+      POSTGRES_USER: "postgres"
+      POSTGRES_HOST: ""
+      POSTGRES_PASSWORD: ""
+      POSTGRES_DATABASE: "test"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
