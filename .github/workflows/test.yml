@@ -18,6 +18,7 @@ jobs:
     name: Lint, Unit Test, Type Check
     runs-on: ubuntu-latest
     timeout-minutes: 14
+    environment: 'test'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
