@@ -4,8 +4,8 @@ on:
 
 jobs:
   test-e2e:
-    if:
-      github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'               timeout-minutes: 60
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
       POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
