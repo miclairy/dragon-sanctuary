@@ -2,8 +2,8 @@ import { Prisma } from '.prisma/client';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const dragon: DragonCreateInput = {
-    name: 'Drogon',
-    slug: 'drogon',
+    name: 'TestDrogon',
+    slug: 'testDrogon',
     color: 'purple',
     terrain: 'forest',
     fireBreather: true,

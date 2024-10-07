@@ -47,7 +47,7 @@ const prompt = ({
     `a realistic ${color} dragon with ${legs} legs that breathes ${whatDoesItBreathe(fireBreather, waterBreather)}, they have ${eyeColor} colored eyes and ${horns} horns and ${boolToText(fins)} fins and ${boolToText(feathers)} feathers. It lives in the ${terrain}`;
 
 const generateImage = async (dragon: DragonCreateInput) => {
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV !== 'development' && process.env.MOCK_OPENAI === 'false') {
         try {
             const response = await openai.images.generate({
                 model: 'dall-e-3',
