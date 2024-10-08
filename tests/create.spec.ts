@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { testDragon } from './global.setup';
 
 test('clicking generate generates dragon with valid data', async ({ page }) => {
-    await page.goto(`${process.env.BASE_URL}/create`);
+    await page.goto(`/create`);
     await page.getByRole('button', { name: 'Generate' }).click();
 
     await expect(page.getByText('Name is required')).toBeVisible();
