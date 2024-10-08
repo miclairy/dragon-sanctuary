@@ -74,7 +74,7 @@ export const CreateDragonForm = () => {
             <div>
                 {imageUrl && <img src={imageUrl} alt="dragon" width={1024} height={1024} />}
                 {loading && (
-                    <div className=" min-h-screen ">
+                    <div className="min-h-screen">
                         <WhimsySpinner size="lg" />
                     </div>
                 )}

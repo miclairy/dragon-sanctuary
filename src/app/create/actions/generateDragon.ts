@@ -1,13 +1,12 @@
 'use server';
 
-import prisma from '@/lib/db';
-import { Dragon, Prisma } from '.prisma/client';
-import { revalidatePath } from 'next/cache';
+import { Prisma } from '.prisma/client';
 import logger from '../../../../pino/logger';
 import OpenAI from 'openai';
 import { v4 as uuidv4 } from 'uuid';
-import { upload } from '@/app/create/actions/uploadImage';
-import { defaultImage, GALLERY } from '@/app/constants';
+import { defaultImage } from '@/app/constants';
+import { createDragon } from '@/app/create/actions/createDragon';
+import { upload } from '@/app/create/actions/upload';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 const openai = new OpenAI();
@@ -48,7 +47,7 @@ const prompt = ({
     `a realistic ${color} dragon with ${legs} legs that breathes ${whatDoesItBreathe(fireBreather, waterBreather)}, they have ${eyeColor} colored eyes and ${horns} horns and ${boolToText(fins)} fins and ${boolToText(feathers)} feathers. It lives in the ${terrain}`;
 
 const generateImage = async (dragon: DragonCreateInput) => {
-    if (process.env.MOCK_OPENAPI !== 'true') {
+    if (process.env.NODE_ENV !== 'development' && process.env.MOCK_OPENAI === 'false') {
         try {
             const response = await openai.images.generate({
                 model: 'dall-e-3',
@@ -78,23 +77,5 @@ export const generateDragon = async (dragon: DragonCreateInput) => {
         return imageUrl;
     } catch (e) {
         throw e;
-    }
-};
-
-const createDragon = async (data: DragonCreateInput, imageKey: string) => {
-    try {
-        await prisma.dragon.create({
-            data: {
-                ...data,
-                slug: data.name.replace(/\s+/g, '-').toLowerCase(),
-                horns: data.horns,
-                legs: data.legs,
-                imageKey,
-            } as Dragon,
-        });
-        revalidatePath(GALLERY);
-    } catch (e) {
-        logger.error(e);
-        throw new Error('Database Error: Failed to create dragon');
     }
 };

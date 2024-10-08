@@ -1,0 +1,38 @@
+name: Test
+
+env:
+  TZ: Europe/Amsterdam
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, synchronize ]
+
+permissions:
+  id-token: write
+  contents: write
+  packages: read
+
+jobs:
+  check-all:
+    name: Lint, Unit Test, Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    env:
+      POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+      POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
+      POSTGRES_URL_NO_SSL: ${{ secrets.POSTGRES_URL_NO_SSL }}
+      POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run test

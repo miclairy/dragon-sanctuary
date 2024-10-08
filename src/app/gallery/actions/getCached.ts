@@ -1,10 +1,9 @@
 'use server';
 import prisma from '@/lib/db';
-import { unstable_cache as cache } from 'next/cache';
 import logger from '../../../../pino/logger';
 import { LIMIT } from '@/app/constants';
 
-export const getCachedDragons = cache(async (cursorIndex: number | null, skip = 0) => {
+export const getCachedDragons = async (cursorIndex: number | null, skip = 0) => {
     try {
         return await prisma.dragon.findMany({
             take: LIMIT,
@@ -29,7 +28,7 @@ export const getCachedDragons = cache(async (cursorIndex: number | null, skip = 
         logger.error(e);
         throw new Error('Database Error: Failed to get dragons');
     }
-});
+};
 
 export const getDragonCount = async () => {
     try {
