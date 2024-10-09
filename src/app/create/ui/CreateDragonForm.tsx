@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { LabelInput } from '@/app/create/ui/LabelInput';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
 import { useState } from 'react';
 import WhimsySpinner from '@/app/ui/WhimsySpinner';
 import { ErrorBox } from '@/app/ui/ErrorBox';
 import clsx from 'clsx';
+import { Step } from '@/app/create/ui/Step';
+import { stepOrder, TERRAIN } from '@/app/create/creationSteps';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const CreateDragonForm = () => {
@@ -13,20 +14,30 @@ export const CreateDragonForm = () => {
         register,
         formState: { errors },
         handleSubmit,
+        setValue,
+        getValues,
     } = useForm<DragonCreateInput>({
         defaultValues: {
-            legs: 4,
-            wings: true,
-            terrain: 'Sky',
-            horns: 2,
+            waterBreather: false,
+            fireBreather: false,
+            fins: false,
+            feathers: false,
         },
     });
 
     const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string>();
+    const [step, setStep] = useState(0);
+
     const onSubmit = async (data: DragonCreateInput) => {
         setLoading(true);
+        if (data.terrain === TERRAIN.sea || data.terrain === TERRAIN.lake) {
+            data.fins = true;
+        }
+        if (!data.armored) {
+            data.feathers = true;
+        }
         try {
             const imageUrl = await generateDragon(data);
             setImageUrl(imageUrl);
@@ -45,30 +56,39 @@ export const CreateDragonForm = () => {
     return (
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pl-2">
-                <LabelInput register={register} errors={errors} name="name" required type="text" />
-                <LabelInput register={register} errors={errors} name="color" required type="text" />
-                <LabelInput register={register} errors={errors} name="eyeColor" required type="text" />
-                <LabelInput register={register} errors={errors} name="legs" required type="number" />
-                <LabelInput register={register} errors={errors} name="fireBreather" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="waterBreather" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="armored" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="horns" required type="number" />
-                <LabelInput register={register} errors={errors} name="fins" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="feathers" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="wings" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="terrain" required type="text" />
+                {step < stepOrder.length && (
+                    <>
+                        <Step
+                            stepNumber={step}
+                            register={register}
+                            errors={errors}
+                            setValue={setValue}
+                            getValues={getValues}
+                        ></Step>
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setStep((s) => s + 1);
+                            }}
+                        >
+                            continue
+                        </button>
+                    </>
+                )}
 
-                <input
-                    type="submit"
-                    id="generate-btn"
-                    value="Generate"
-                    disabled={loading}
-                    className={clsx('text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple', {
-                        'bg-pinkLight': loading,
-                        'hover:bg-pinkLight': loading,
-                        'text-gray-400': loading,
-                    })}
-                />
+                {step >= stepOrder.length && (
+                    <input
+                        type="submit"
+                        id="generate-btn"
+                        value="Generate"
+                        disabled={loading}
+                        className={clsx('text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple', {
+                            'bg-pinkLight': loading,
+                            'hover:bg-pinkLight': loading,
+                            'text-gray-400': loading,
+                        })}
+                    />
+                )}
             </form>
 
             <div>
