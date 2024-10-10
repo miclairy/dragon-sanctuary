@@ -4,7 +4,6 @@ import { getCachedDragons } from '@/app/gallery/actions/getCached';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Card } from '@/app/gallery/ui/Card';
-import { LIMIT } from '@/app/constants';
 
 export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayDragon[]; count: number }) => {
     const [dragons, setDragons] = useState(initialDragons);
@@ -33,8 +32,12 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
                 {dragons.map((dragon) => (
                     <Card {...dragon} key={dragon.id}></Card>
                 ))}
-                {count - LIMIT > dragons.length && <div ref={ref}> More fire power below....</div>}
             </div>
+            {count > dragons.length && (
+                <div ref={ref} className="text-center p-2">
+                    More fire power below....
+                </div>
+            )}
         </div>
     );
 };

@@ -6,74 +6,64 @@ import WhimsySpinner from '@/app/ui/WhimsySpinner';
 import { ErrorBox } from '@/app/ui/ErrorBox';
 import clsx from 'clsx';
 import { Step } from '@/app/create/ui/Step';
-import { stepOrder, TERRAIN } from '@/app/create/creationSteps';
+import { Breath, stepOrder } from '@/app/create/creationSteps';
+import { validateDragon } from '@/app/create/validation';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
+export interface CreateDragonForm extends DragonCreateInput {
+    breathes: Breath;
+}
+
 export const CreateDragonForm = () => {
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-        setValue,
-        getValues,
-    } = useForm<DragonCreateInput>({
+    const { register, handleSubmit, setValue, getValues } = useForm<CreateDragonForm>({
         defaultValues: {
-            waterBreather: false,
-            fireBreather: false,
             fins: false,
             feathers: false,
+            horns: 0,
+            fireBreather: false,
+            waterBreather: false,
         },
     });
 
     const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>();
+    const [error, setError] = useState<string | null>();
     const [step, setStep] = useState(0);
 
-    const onSubmit = async (data: DragonCreateInput) => {
+    const onSubmit = async (formInput: CreateDragonForm) => {
         setLoading(true);
-        if (data.terrain === TERRAIN.sea || data.terrain === TERRAIN.lake) {
-            data.fins = true;
-        }
-        if (!data.armored) {
-            data.feathers = true;
-        }
-        try {
-            const imageUrl = await generateDragon(data);
-            setImageUrl(imageUrl);
-        } catch (e) {
-            if (e instanceof Error) {
-                setError(e.message);
+        setError(null);
+        const { data, success, errors } = validateDragon(formInput);
+        if (success) {
+            try {
+                const imageUrl = await generateDragon(data);
+                setImageUrl(imageUrl);
+            } catch (e) {
+                if (e instanceof Error) {
+                    setError(e.message);
+                }
+            } finally {
+                setLoading(false);
             }
-        } finally {
+        } else {
             setLoading(false);
+            setError(errors?.pop()?.message);
         }
     };
 
-    // pancake todo use the watch api to visually display a dragon representation or fun quiz like UI
     // pancake todo use nextjs Image component
 
     return (
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pl-2">
                 {step < stepOrder.length && (
-                    <>
-                        <Step
-                            stepNumber={step}
-                            register={register}
-                            errors={errors}
-                            setValue={setValue}
-                            getValues={getValues}
-                        ></Step>
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setStep((s) => s + 1);
-                            }}
-                        >
-                            continue
-                        </button>
-                    </>
+                    <Step
+                        stepNumber={step}
+                        register={register}
+                        setValue={setValue}
+                        getValues={getValues}
+                        setStep={setStep}
+                    ></Step>
                 )}
 
                 {step >= stepOrder.length && (
@@ -98,7 +88,7 @@ export const CreateDragonForm = () => {
                         <WhimsySpinner size="lg" />
                     </div>
                 )}
-                {error && <ErrorBox />}
+                {error && <ErrorBox message={error} />}
             </div>
         </div>
     );

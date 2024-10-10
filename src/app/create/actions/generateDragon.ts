@@ -7,20 +7,20 @@ import { v4 as uuidv4 } from 'uuid';
 import { defaultImage } from '@/app/constants';
 import { createDragon } from '@/app/create/actions/createDragon';
 import { upload } from '@/app/create/actions/upload';
-import { Breath } from '@/app/create/creationSteps';
+import { BREATH } from '@/app/create/creationSteps';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 const openai = new OpenAI();
 
 const whatDoesItBreathe = (breathesFire: boolean, breathesWater: boolean) => {
     if (breathesFire && breathesWater) {
-        return Breath.STEAM;
+        return BREATH.STEAM;
     } else if (breathesFire) {
-        return Breath.FIRE;
+        return BREATH.FIRE;
     } else if (breathesWater) {
-        return Breath.WATER;
+        return BREATH.WATER;
     }
-    return Breath.NONE;
+    return BREATH.NONE;
 };
 
 const boolToText = (value: boolean) => {
