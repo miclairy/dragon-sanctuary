@@ -143,16 +143,8 @@ export const creationSteps: { [k: string]: Question } = {
             "You haven't been eaten or burnt so you risk it all and reach out to them. You hear something. Is their name? Their name is",
         freeText: { title: 'name' },
     },
-    outro: {
-        index: 11,
-        content: () =>
-            'Congratulations you survived here is your dragon. Adoption is in sponsorship only. You reserve no rights to the dragon in life or death. Thank you for helping protect these majestic creatures. T&Cs apply',
-    },
 };
 
 export const stepOrder = Object.keys(creationSteps);
 
-// if water terrain then fins, if friendly then feathers,
-
-// wait where did they go? They should be back soon.... You feel a shove from below is that them... Are we flying?... UP UP UP....
-// You land again back on the precipice all you are left with is a picture for your journal.
+// wait where did they go?  You feel a shove from below. Is that them... Are we flying?... UP UP UP....

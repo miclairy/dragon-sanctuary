@@ -19,13 +19,15 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
     const { options, freeText } = creationSteps[stepName];
     const attribute = options?.attribute ?? freeText?.title;
     const [error, setError] = useState<ZodIssue | null>();
-    const goToNextStep = () => {
+    const validate = () => {
         const { success, error } = attribute
             ? formSchema[attribute].safeParse(getValues(attribute))
             : { success: true };
         setError(error?.issues.pop());
-
-        if (success) {
+        return success;
+    };
+    const goToNextStep = () => {
+        if (validate()) {
             setStep((s) => s + 1);
             setError(null);
         }
@@ -41,8 +43,11 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
             )}
             <button
                 onClick={(e) => {
-                    e.preventDefault();
-                    goToNextStep();
+                    validate();
+                    if (stepNumber !== stepOrder.length - 1) {
+                        e.preventDefault();
+                        goToNextStep();
+                    }
                 }}
             >
                 keep exploring

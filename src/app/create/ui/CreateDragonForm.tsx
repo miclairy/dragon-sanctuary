@@ -1,20 +1,24 @@
 import { useForm } from 'react-hook-form';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
-import { useState } from 'react';
-import WhimsySpinner from '@/app/ui/WhimsySpinner';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { ErrorBox } from '@/app/ui/ErrorBox';
-import clsx from 'clsx';
 import { Step } from '@/app/create/ui/Step';
 import { Breath, stepOrder } from '@/app/create/creationSteps';
 import { validateDragon } from '@/app/create/validation';
+import clsx from 'clsx';
+import { Loading } from '@/app/create/ui/Loading';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export interface CreateDragonForm extends DragonCreateInput {
     breathes: Breath;
 }
 
-export const CreateDragonForm = () => {
+interface Props {
+    setImageUrl: Dispatch<SetStateAction<string | undefined>>;
+}
+
+export const CreateDragonForm = ({ setImageUrl }: Props) => {
     const { register, handleSubmit, setValue, getValues } = useForm<CreateDragonForm>({
         defaultValues: {
             fins: false,
@@ -25,7 +29,6 @@ export const CreateDragonForm = () => {
         },
     });
 
-    const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>();
     const [step, setStep] = useState(0);
@@ -37,7 +40,11 @@ export const CreateDragonForm = () => {
         if (success) {
             try {
                 const imageUrl = await generateDragon(data);
-                setImageUrl(imageUrl);
+                if (!imageUrl) {
+                    setError('Something went wrong');
+                } else {
+                    setImageUrl(imageUrl);
+                }
             } catch (e) {
                 if (e instanceof Error) {
                     setError(e.message);
@@ -56,7 +63,7 @@ export const CreateDragonForm = () => {
     return (
         <div className="lg:flex pt-4 gap-2 justify-content:space-around">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pl-2">
-                {step < stepOrder.length && (
+                {step < stepOrder.length && !loading && (
                     <Step
                         stepNumber={step}
                         register={register}
@@ -66,7 +73,7 @@ export const CreateDragonForm = () => {
                     ></Step>
                 )}
 
-                {step >= stepOrder.length && (
+                {step === stepOrder.length && (
                     <input
                         type="submit"
                         id="generate-btn"
@@ -80,16 +87,8 @@ export const CreateDragonForm = () => {
                     />
                 )}
             </form>
-
-            <div>
-                {imageUrl && <img src={imageUrl} alt="dragon" width={1024} height={1024} />}
-                {loading && (
-                    <div className="min-h-screen">
-                        <WhimsySpinner size="lg" />
-                    </div>
-                )}
-                {error && <ErrorBox message={error} />}
-            </div>
+            {error && <ErrorBox message={error} />}
+            {loading && <Loading />}
         </div>
     );
 };
