@@ -41,28 +41,33 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
                     <i>{error.message}</i>
                 </p>
             )}
-            <button
-                onClick={(e) => {
-                    validate();
-                    if (stepNumber !== stepOrder.length - 1) {
-                        e.preventDefault();
-                        goToNextStep();
-                    }
-                }}
-            >
-                keep exploring
-            </button>
-            {stepNumber > 0 && (
+
+            <div>
+                {stepNumber > 0 && (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setError(null);
+                            setStep((s) => s - 1);
+                        }}
+                        className="p-1 m-1 border-solid border-4 border-blue hover:bg-blue"
+                    >
+                        &lt;-- i think i missed something go back
+                    </button>
+                )}
                 <button
                     onClick={(e) => {
-                        e.preventDefault();
-                        setError(null);
-                        setStep((s) => s - 1);
+                        validate();
+                        if (stepNumber !== stepOrder.length - 1) {
+                            e.preventDefault();
+                            goToNextStep();
+                        }
                     }}
+                    className="p-1 m-1 border-solid border-4 border-blue hover:bg-blue"
                 >
-                    i think i missed something go back
+                    keep exploring --&#62;
                 </button>
-            )}
+            </div>
         </div>
     );
 };
