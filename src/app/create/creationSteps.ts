@@ -20,6 +20,7 @@ interface Question {
         values: { title: string; value?: string | number | boolean }[];
     };
     freeText?: { title: keyof DragonCreateInput; type?: 'number' };
+    backgroundImage: string;
 }
 
 export const TERRAIN = {
@@ -45,6 +46,7 @@ export const creationSteps: { [k: string]: Question } = {
         index: 0,
         content: () =>
             'You stand at the precipice, down there is the dragon sanctuary. Do you dare to adopt a dragon? Be warned you may not come out alive.',
+        backgroundImage: 'mountain',
     },
     terrain: {
         index: 1,
@@ -65,18 +67,21 @@ export const creationSteps: { [k: string]: Question } = {
                 { title: 'Climb the Mountain', value: TERRAIN.mountain },
             ],
         },
+        backgroundImage: 'fluffy-cloud',
     },
     color: {
         index: 2,
         content: (terrain: string) =>
             `You ${movementMap[terrain as Terrain]} the ${terrain} and find yourself surrounded by raw beauty. Something catches your eye: a grove of strange plants colored with the most fantastic shades of....`,
         freeText: { title: 'color' },
+        backgroundImage: 'tree',
     },
     eyeColor: {
         index: 3,
         content: () => `There is something camouflaged in the foliage but its....`,
         secondaryContent: '....eyes stand out',
         freeText: { title: 'eyeColor' },
+        backgroundImage: 'eye',
     },
     legs: {
         index: 4,
@@ -91,6 +96,7 @@ export const creationSteps: { [k: string]: Question } = {
                 { title: 'Octolegged monstrosity', value: 8 },
             ],
         },
+        backgroundImage: 'claw',
     },
     wings: {
         index: 5,
@@ -102,12 +108,14 @@ export const creationSteps: { [k: string]: Question } = {
                 { title: 'tail', value: false },
             ],
         },
+        backgroundImage: 'wing',
     },
     horns: {
         index: 6,
         content: () =>
             'They turn to you curiously. Perhaps they see something in you, that you do not. Not losing your composure and remembering your training you count the horns.\n How many do you count?',
         freeText: { title: 'horns', type: 'number' },
+        backgroundImage: 'horns',
     },
     armored: {
         index: 7,
@@ -120,6 +128,7 @@ export const creationSteps: { [k: string]: Question } = {
                 { title: 'kind and wise', value: false },
             ],
         },
+        backgroundImage: 'head',
     },
     breathes: {
         index: 8,
@@ -137,12 +146,14 @@ export const creationSteps: { [k: string]: Question } = {
                 },
             ],
         },
+        backgroundImage: 'breath',
     },
     name: {
         index: 9,
         content: () =>
             "You haven't been eaten or burnt so you risk it all and reach out to them.\n...You hear something....\nIs it their name? Their name is...",
         freeText: { title: 'name' },
+        backgroundImage: 'wyvern',
     },
 };
 

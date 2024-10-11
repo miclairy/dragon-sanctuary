@@ -26,17 +26,18 @@ export const Question = ({ register, getValues, stepNumber, setValue }: Props) =
 
     return (
         <div>
-            <div>
-                <div className={`${alegreya.className} `}>
-                    <h3 className="text-2xl">Q{stepNumber + 1}:</h3>
-                    <h4 className="text-xl">
+            <div className="lg:flex lg:m-4 ">
+                <div className={`${alegreya.className} mb-2`}>
+                    <h3 className="text-3xl text-purple">Q{stepNumber + 1}:</h3>
+                    <h4 className="text-2xl whitespace-nowrap text-purple">
                         {stepNumber + 1} / {stepOrder.length}
                     </h4>
                 </div>
 
-                <p className="whitespace-pre-wrap m-4">{content(getValues('terrain'))}</p>
+                <p className="whitespace-pre-wrap lg:mx-4 sm:my-2 text-lg">{content(getValues('terrain'))}</p>
             </div>
-            <div className="flex-col justify-center items-center align-middle my-4 gap-2">
+
+            <div className="flex-col justify-center items-center align-middle my-4 gap-2 min-h-72">
                 {freeText && (
                     <input
                         type={freeText.type}
@@ -44,7 +45,6 @@ export const Question = ({ register, getValues, stepNumber, setValue }: Props) =
                         className="flex mx-auto rounded-xl p-1 m-1 shadow-pink shadow-inner bg-pinkLight text-xl text-center text-purple"
                     />
                 )}
-
                 {options?.values.map(({ title, value }) => (
                     <button
                         key={title}
@@ -69,9 +69,8 @@ export const Question = ({ register, getValues, stepNumber, setValue }: Props) =
                         {title}
                     </button>
                 ))}
+                {secondaryContent && <p className="whitespace-pre-wrap mt-4 lg:ml-20 text-lg">{secondaryContent}</p>}
             </div>
-
-            {secondaryContent && <p className="whitespace-pre-wrap mx-4">{secondaryContent}</p>}
         </div>
     );
 };

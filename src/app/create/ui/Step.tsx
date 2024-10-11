@@ -1,6 +1,6 @@
 import { creationSteps, stepOrder } from '@/app/create/creationSteps';
 import { UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Question } from '@/app/create/ui/Question';
 import { ZodIssue } from 'zod';
 import { formSchema } from '@/app/create/validation';
@@ -15,10 +15,10 @@ interface Props {
 }
 
 export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Props) => {
-    const stepName = stepOrder[stepNumber];
-    const { options, freeText } = creationSteps[stepName];
+    const { options, freeText } = creationSteps[stepOrder[stepNumber]];
     const attribute = options?.attribute ?? freeText?.title;
     const [error, setError] = useState<ZodIssue | null>();
+    const nextRef = useRef<HTMLButtonElement>(null);
     const validate = () => {
         const { success, error } = attribute
             ? formSchema[attribute].safeParse(getValues(attribute))
@@ -26,12 +26,21 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
         setError(error?.issues.pop());
         return success;
     };
+
     const goToNextStep = () => {
         setError(null);
         if (validate()) {
             setStep((s) => s + 1);
         }
     };
+
+    useEffect(() => {
+        nextRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start',
+        });
+    });
 
     return (
         <div>
@@ -58,6 +67,7 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
                     </button>
                 )}
                 <button
+                    ref={nextRef}
                     onClick={(e) => {
                         validate();
                         if (stepNumber !== stepOrder.length - 1) {

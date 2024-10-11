@@ -4,7 +4,7 @@ import { Prisma } from '.prisma/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ErrorBox } from '@/app/ui/ErrorBox';
 import { Step } from '@/app/create/ui/Step';
-import { Breath, stepOrder } from '@/app/create/creationSteps';
+import { Breath, creationSteps, stepOrder } from '@/app/create/creationSteps';
 import { validateDragon } from '@/app/create/validation';
 import { Loading } from '@/app/create/ui/Loading';
 import DragonCreateInput = Prisma.DragonCreateInput;
@@ -31,11 +31,12 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>();
     const [step, setStep] = useState(0);
+    const { backgroundImage } = creationSteps[stepOrder[step]];
 
     const onSubmit = async (formInput: CreateDragonForm) => {
         setLoading(true);
         setError(null);
-        const { data, success, errors } = validateDragon(formInput);
+        const { data, success } = validateDragon(formInput);
         if (success) {
             try {
                 const imageUrl = await generateDragon(data);
@@ -53,14 +54,16 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
             }
         } else {
             setLoading(false);
-            setError(errors?.pop()?.message);
         }
     };
 
     // pancake todo use nextjs Image component
 
     return (
-        <div className="mt-4 max-w-3xl h-3xl mx-auto bg-blueLight rounded-xl border-dashed border-blue border-2 ">
+        <div
+            style={{ backgroundImage: `url(/${backgroundImage}.svg)` }}
+            className="bg-contain bg-no-repeat bg-center mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 "
+        >
             <form onSubmit={handleSubmit(onSubmit)}>
                 {step < stepOrder.length && !loading && (
                     <Step
