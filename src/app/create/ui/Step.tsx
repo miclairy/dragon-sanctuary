@@ -27,22 +27,24 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
         return success;
     };
     const goToNextStep = () => {
+        setError(null);
         if (validate()) {
             setStep((s) => s + 1);
-            setError(null);
         }
     };
 
     return (
         <div>
-            <Question stepName={stepName} register={register} setValue={setValue} getValues={getValues} />
-            {error && (
-                <p role="alert" className="text-pink">
-                    <i>{error.message}</i>
-                </p>
-            )}
+            <div className="p-2">
+                <Question stepNumber={stepNumber} register={register} setValue={setValue} getValues={getValues} />
+                {error && (
+                    <p role="alert" className="text-rose-600">
+                        <i>{error.message}</i>
+                    </p>
+                )}
+            </div>
 
-            <div>
+            <div className="w-full flex justify-around align-middle my-4 p-2">
                 {stepNumber > 0 && (
                     <button
                         onClick={(e) => {
@@ -50,9 +52,9 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
                             setError(null);
                             setStep((s) => s - 1);
                         }}
-                        className="p-1 m-1 border-solid border-4 border-blue hover:bg-blue"
+                        className="p-1 m-1 border-solid border-2 border-blue hover:bg-blueLight bg-blue bg-opacity-20"
                     >
-                        &lt;-- i think i missed something go back
+                        &lt;-- back away
                     </button>
                 )}
                 <button
@@ -63,7 +65,7 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
                             goToNextStep();
                         }
                     }}
-                    className="p-1 m-1 border-solid border-4 border-blue hover:bg-blue"
+                    className="p-1 m-1 border-solid border-2 border-blue hover:bg-blueLight bg-blue bg-opacity-20"
                 >
                     keep exploring --&#62;
                 </button>

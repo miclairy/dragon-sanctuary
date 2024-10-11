@@ -29,7 +29,7 @@ export const Loading = () => {
     }, []);
 
     return (
-        <div className="flex-col items-center justify-center h-screen ">
+        <div className="flex-col items-center justify-center  ">
             <div
                 className={`
           text-center

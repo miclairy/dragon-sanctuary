@@ -9,8 +9,7 @@ const validation: { [k: string]: ZodSchema } = {
         .string()
         .min(3, { message: 'There are no dragon names in the historical record that have less than 3 characters' }),
     legs: z.number({
-        message:
-            'You know from your training that it must be a specific breed. Dragons have 4 legs, Wyvern have 2 Coatyls have none. Octolegged monstrosities naturally have 8 but they have never ben sighted',
+        message: 'It must be a specific breed.',
     }),
     color: z.string().min(3, { message: 'Unless perhaps it is colourless? In that case write transparent.' }),
     terrain: z.string({ message: 'You are you going to explore somewhere, right?' }),

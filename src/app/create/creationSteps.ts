@@ -80,7 +80,8 @@ export const creationSteps: { [k: string]: Question } = {
     },
     legs: {
         index: 4,
-        content: () => 'It looks to be a',
+        content: () =>
+            'You know from your training that Dragons have 4 legs, Wyvern have 2 and Coatyls have none. Octolegged monstrosities naturally have 8 but they have never ben sighted. \n Which is it?',
         options: {
             attribute: 'legs',
             values: [
@@ -105,13 +106,13 @@ export const creationSteps: { [k: string]: Question } = {
     horns: {
         index: 6,
         content: () =>
-            'They turn to you curiously. Perhaps they see something in you, that you do not. Not losing your composure and remembering your training you remember to count the horns. How many do you count?',
+            'They turn to you curiously. Perhaps they see something in you, that you do not. Not losing your composure and remembering your training you count the horns.\n How many do you count?',
         freeText: { title: 'horns', type: 'number' },
     },
     armored: {
         index: 7,
         content: () =>
-            'After the count you know your relative safety.... Are the textbooks correct? Because this one looks particularly....',
+            'After the count you know your relative safety....\nAre the textbooks correct? Because this one looks particularly....',
         options: {
             attribute: 'armored',
             values: [
@@ -123,7 +124,7 @@ export const creationSteps: { [k: string]: Question } = {
     breathes: {
         index: 8,
         content: () =>
-            'You finish your assessment them and they finish their assessment of you with a large ROOOOAARR. You feel....',
+            'You finish your assessment them and they finish their assessment of you with a large ROOOOAARR.\nYou feel....',
         secondaryContent: '....when their breath reaches you.',
         options: {
             attribute: 'breathes',
@@ -140,7 +141,7 @@ export const creationSteps: { [k: string]: Question } = {
     name: {
         index: 9,
         content: () =>
-            "You haven't been eaten or burnt so you risk it all and reach out to them. You hear something. Is their name? Their name is",
+            "You haven't been eaten or burnt so you risk it all and reach out to them.\n...You hear something....\nIs it their name? Their name is...",
         freeText: { title: 'name' },
     },
 };

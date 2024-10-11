@@ -6,7 +6,6 @@ import { ErrorBox } from '@/app/ui/ErrorBox';
 import { Step } from '@/app/create/ui/Step';
 import { Breath, stepOrder } from '@/app/create/creationSteps';
 import { validateDragon } from '@/app/create/validation';
-import clsx from 'clsx';
 import { Loading } from '@/app/create/ui/Loading';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
@@ -61,8 +60,8 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
     // pancake todo use nextjs Image component
 
     return (
-        <div className="lg:flex pt-4 gap-2 justify-content:space-around">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pl-2">
+        <div className="mt-4 max-w-3xl h-3xl mx-auto bg-blueLight rounded-xl border-dashed border-blue border-2 ">
+            <form onSubmit={handleSubmit(onSubmit)}>
                 {step < stepOrder.length && !loading && (
                     <Step
                         stepNumber={step}
@@ -71,20 +70,6 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
                         getValues={getValues}
                         setStep={setStep}
                     ></Step>
-                )}
-
-                {step === stepOrder.length && (
-                    <input
-                        type="submit"
-                        id="generate-btn"
-                        value="Generate"
-                        disabled={loading}
-                        className={clsx('text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple', {
-                            'bg-pinkLight': loading,
-                            'hover:bg-pinkLight': loading,
-                            'text-gray-400': loading,
-                        })}
-                    />
                 )}
             </form>
             {error && <ErrorBox message={error} />}

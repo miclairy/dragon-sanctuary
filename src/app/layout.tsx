@@ -16,7 +16,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${joseFinSans.className} antialiased bg-gradient-to-r from-blueLight to-pinkLight`}>
-                <h1 className={`${alegreya.className} text-5xl p-4 text-center`}>Dragon Sanctuary</h1>
+                <h1 className={`${alegreya.className} text-4xl p-4 text-center`}>Dragon Sanctuary</h1>
                 <Navigation />
                 {children}
             </body>
