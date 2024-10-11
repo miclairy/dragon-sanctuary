@@ -29,10 +29,11 @@ export const Loading = () => {
     }, []);
 
     return (
-        <div className="flex-col items-center justify-center  ">
+        <div className="flex-col items-center justify-center h-100 ">
             <div
                 className={`
-          text-center
+          text-center 
+          text-lg
           transition-opacity duration-1000 ease-in-out
           ${isVisible ? 'opacity-100' : 'opacity-0'}
         `}

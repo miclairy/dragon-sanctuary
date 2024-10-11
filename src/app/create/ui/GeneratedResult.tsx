@@ -9,12 +9,12 @@ export const GeneratedResult = ({ imageUrl }: Props) => {
     }
     return (
         <div className=" mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 ">
-            <h3 className="p-2 text-lg">
-                You land again back on the precipice all you are left with is a picture for your journal.
+            <h3 className="p-4 text-lg">
+                You land again back on the precipice and all you are left with is a picture for your journal.
             </h3>
             <img
                 className="border-white border-solid border-4"
-                style={{ transform: 'rotate(2deg)' }}
+                style={{ transform: 'rotate(1deg)' }}
                 src={imageUrl}
                 alt="dragon"
                 width={1024}

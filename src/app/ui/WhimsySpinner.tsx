@@ -16,7 +16,7 @@ export default function WhimsySpinner({ size = 'md' }: { size?: 'sm' | 'md' | 'l
     };
 
     return (
-        <div className={`relative ${sizeClasses[size]}`} aria-label="Loading" role="status">
+        <div className={`relative ${sizeClasses[size]} m-auto`} aria-label="Loading" role="status">
             {[...Array(8)].map((_, index) => (
                 <motion.div
                     key={index}
