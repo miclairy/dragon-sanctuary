@@ -45,14 +45,14 @@ export const creationSteps: { [k: string]: Question } = {
     intro: {
         index: 0,
         content: () =>
-            'You stand at the precipice, down there is the dragon sanctuary. Do you dare to adopt a dragon? Be warned you may not come out alive.',
+            'You stand at the precipice, down there is the dragon sanctuary. Do you dare to adopt a dragon?\nBe warned you may not come out alive.',
         backgroundImage: 'mountain',
     },
     terrain: {
         index: 1,
         content: () =>
             'You feel dizzy and the fog clears. You get up from the soft grass and look around. \n' +
-            'Above there is a mountain leading to a sky with fluffy clouds, to the left there is a forest to the right is a lake. A salty breeze wafts under your nose. \n' +
+            'Above you there is a mountain leading to a sky with fluffy clouds, to the left there is a forest, to the right a lake. A salty breeze wafts under your nose. \n' +
             'Where do you go?',
         options: {
             attribute: 'terrain',
@@ -86,7 +86,7 @@ export const creationSteps: { [k: string]: Question } = {
     legs: {
         index: 4,
         content: () =>
-            'You know from your training that Dragons have 4 legs, Wyvern have 2 and Coatyls have none. Octolegged monstrosities naturally have 8 but they have never ben sighted. \n Which is it?',
+            'You know from your training that Dragons have 4 legs, Wyvern have 2 and Coatyls have none. Octolegged monstrosities naturally have 8 but they have never been sighted. \n Which is it?',
         options: {
             attribute: 'legs',
             values: [

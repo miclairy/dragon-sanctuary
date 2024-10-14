@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const CreateDragonForm = ({ setImageUrl }: Props) => {
-    const { register, handleSubmit, setValue, getValues } = useForm<CreateDragonForm>({
+    const formMethods = useForm<CreateDragonForm>({
         defaultValues: {
             fins: false,
             feathers: false,
@@ -64,19 +64,13 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
             style={{ backgroundImage: `url(/${backgroundImage}.svg)` }}
             className="bg-contain bg-no-repeat bg-center mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 "
         >
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {step < stepOrder.length && !loading && (
-                    <Step
-                        stepNumber={step}
-                        register={register}
-                        setValue={setValue}
-                        getValues={getValues}
-                        setStep={setStep}
-                    ></Step>
-                )}
-            </form>
-            {error && <ErrorBox message={error} />}
-            {loading && <Loading />}
+            <FormProvider {...formMethods}>
+                <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+                    {step < stepOrder.length && !loading && <Step stepNumber={step} setStep={setStep}></Step>}
+                </form>
+                {error && <ErrorBox message={error} />}
+                {loading && <Loading />}
+            </FormProvider>
         </div>
     );
 };

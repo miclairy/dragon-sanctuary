@@ -19,6 +19,8 @@ const config: Config = {
                 pink: '#CB5FA6',
                 greenLight: '#dbf7d5',
                 green: '#96cc60',
+                pinkDark: '#820682',
+                purpleDark: '#3A056F',
             },
         },
     },

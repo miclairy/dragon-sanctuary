@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/app/ui/globals.css';
 import { alegreya, joseFinSans } from '@/app/ui/fonts';
 import { Navigation } from '@/app/ui/Navigation';
+import { Footer } from '@/app/ui/Footer';
 
 export const metadata: Metadata = {
     title: 'Dragon Sanctuary',
@@ -15,12 +16,17 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${joseFinSans.className} antialiased bg-gradient-to-r from-blueLight to-pinkLight`}>
-                <div className="h-screen flex flex-col ">
-                    <h1 className={`${alegreya.className} text-4xl p-4 text-center`}>Dragon Sanctuary</h1>
+            <body
+                className={`${joseFinSans.className} h-screen flex flex-col antialiased bg-gradient-to-r from-blueLight to-pinkLight`}
+            >
+                <header>
+                    <h1 className={`${alegreya.className} text-4xl p-4 text-center text-purpleDark`}>
+                        Dragon Sanctuary
+                    </h1>
                     <Navigation />
-                    {children}
-                </div>
+                </header>
+                <main>{children}</main>
+                <Footer />
             </body>
         </html>
     );

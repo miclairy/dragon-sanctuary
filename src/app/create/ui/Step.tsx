@@ -1,20 +1,18 @@
 import { creationSteps, stepOrder } from '@/app/create/creationSteps';
-import { UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Question } from '@/app/create/ui/Question';
 import { ZodIssue } from 'zod';
 import { formSchema } from '@/app/create/validation';
-import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 
 interface Props {
     stepNumber: number;
-    register: UseFormRegister<CreateDragonForm>;
-    setValue: UseFormSetValue<CreateDragonForm>;
-    getValues: UseFormGetValues<CreateDragonForm>;
+
     setStep: Dispatch<SetStateAction<number>>;
 }
 
-export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Props) => {
+export const Step = ({ stepNumber, setStep }: Props) => {
+    const { getValues } = useFormContext();
     const { options, freeText } = creationSteps[stepOrder[stepNumber]];
     const attribute = options?.attribute ?? freeText?.title;
     const [error, setError] = useState<ZodIssue | null>();
@@ -40,16 +38,19 @@ export const Step = ({ stepNumber, register, setValue, getValues, setStep }: Pro
             block: 'nearest',
             inline: 'start',
         });
+        if (!attribute) {
+            nextRef.current?.focus();
+        }
     });
 
     return (
         <div>
             <div className="p-2">
-                <Question stepNumber={stepNumber} register={register} setValue={setValue} getValues={getValues} />
+                <Question stepNumber={stepNumber} error={!!error} goToNextStep={goToNextStep} />
                 {error && (
-                    <p role="alert" className="text-rose-600">
+                    <span role="alert" className="text-rose-800">
                         <i>{error.message}</i>
-                    </p>
+                    </span>
                 )}
             </div>
 
