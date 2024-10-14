@@ -104,8 +104,8 @@ export const creationSteps: { [k: string]: Question } = {
         options: {
             attribute: 'wings',
             values: [
-                { title: 'wings', value: true },
-                { title: 'tail', value: false },
+                { title: 'Beating wings', value: true },
+                { title: 'Spinning tail', value: false },
             ],
         },
         backgroundImage: 'wing',
@@ -124,8 +124,8 @@ export const creationSteps: { [k: string]: Question } = {
         options: {
             attribute: 'armored',
             values: [
-                { title: 'ready for a fight', value: true },
-                { title: 'kind and wise', value: false },
+                { title: 'Ready for a fight', value: true },
+                { title: 'Kind and wise', value: false },
             ],
         },
         backgroundImage: 'head',
