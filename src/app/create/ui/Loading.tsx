@@ -29,18 +29,19 @@ export const Loading = () => {
     }, []);
 
     return (
-        <div className="flex-col items-center justify-center h-100 ">
+        <div className="flex-col items-center justify-center min-h-96">
             <div
                 className={`
           text-center 
-          text-lg
+          text-xl
           transition-opacity duration-1000 ease-in-out
+          p-8
           ${isVisible ? 'opacity-100' : 'opacity-0'}
         `}
             >
                 {currentMessage}
             </div>
-            {!currentMessage && <WhimsySpinner size="lg" />}
+            <WhimsySpinner size="lg" />
         </div>
     );
 };
