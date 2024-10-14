@@ -1,17 +1,16 @@
 'use client';
 
 import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
+import { useState } from 'react';
+import { GeneratedResult } from '@/app/create/ui/GeneratedResult';
 
 export default function Create() {
+    const [imageUrl, setImageUrl] = useState<string>();
+
     return (
-        <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10">
-            <h2 className="text-2xl pb-2"> Create a dragon </h2>
-            <h3 className="text-xl">
-                Do you love dragons? Use this free dragon maker to make your very own dragons and other beautiful
-                monsters. ❤️
-            </h3>
-            <p>Powered By openAI</p>
-            <CreateDragonForm />
+        <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg flex-1">
+            {!imageUrl && <CreateDragonForm setImageUrl={setImageUrl} />}
+            <GeneratedResult imageUrl={imageUrl} />
         </div>
     );
 }

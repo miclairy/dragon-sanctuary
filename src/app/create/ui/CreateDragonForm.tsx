@@ -1,85 +1,76 @@
-import { useForm } from 'react-hook-form';
-import { LabelInput } from '@/app/create/ui/LabelInput';
+import { FormProvider, useForm } from 'react-hook-form';
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { Prisma } from '.prisma/client';
-import { useState } from 'react';
-import WhimsySpinner from '@/app/ui/WhimsySpinner';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { ErrorBox } from '@/app/ui/ErrorBox';
-import clsx from 'clsx';
+import { Step } from '@/app/create/ui/Step';
+import { Breath, creationSteps, stepOrder } from '@/app/create/creationSteps';
+import { validateDragon } from '@/app/create/validation';
+import { Loading } from '@/app/create/ui/Loading';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
-export const CreateDragonForm = () => {
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<DragonCreateInput>({
+export interface CreateDragonForm extends DragonCreateInput {
+    breathes: Breath;
+}
+
+interface Props {
+    setImageUrl: Dispatch<SetStateAction<string | undefined>>;
+}
+
+export const CreateDragonForm = ({ setImageUrl }: Props) => {
+    const formMethods = useForm<CreateDragonForm>({
         defaultValues: {
-            legs: 4,
-            wings: true,
-            terrain: 'Sky',
-            horns: 2,
+            fins: false,
+            feathers: false,
+            horns: 0,
+            fireBreather: false,
+            waterBreather: false,
         },
     });
 
-    const [imageUrl, setImageUrl] = useState<string>();
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string>();
-    const onSubmit = async (data: DragonCreateInput) => {
+    const [error, setError] = useState<string | null>();
+    const [step, setStep] = useState(0);
+    const { backgroundImage } = creationSteps[stepOrder[step]];
+
+    const onSubmit = async (formInput: CreateDragonForm) => {
         setLoading(true);
-        try {
-            const imageUrl = await generateDragon(data);
-            setImageUrl(imageUrl);
-        } catch (e) {
-            if (e instanceof Error) {
-                setError(e.message);
+        setError(null);
+        const { data, success } = validateDragon(formInput);
+        if (success) {
+            try {
+                const imageUrl = await generateDragon(data);
+                if (!imageUrl) {
+                    setError('Something went wrong');
+                } else {
+                    setImageUrl(imageUrl);
+                }
+            } catch (e) {
+                if (e instanceof Error) {
+                    setError(e.message);
+                }
+            } finally {
+                setLoading(false);
             }
-        } finally {
+        } else {
             setLoading(false);
         }
     };
 
-    // pancake todo use the watch api to visually display a dragon representation or fun quiz like UI
     // pancake todo use nextjs Image component
 
     return (
-        <div className="lg:flex pt-4 gap-2 justify-content:space-around">
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 pl-2">
-                <LabelInput register={register} errors={errors} name="name" required type="text" />
-                <LabelInput register={register} errors={errors} name="color" required type="text" />
-                <LabelInput register={register} errors={errors} name="eyeColor" required type="text" />
-                <LabelInput register={register} errors={errors} name="legs" required type="number" />
-                <LabelInput register={register} errors={errors} name="fireBreather" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="waterBreather" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="armored" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="horns" required type="number" />
-                <LabelInput register={register} errors={errors} name="fins" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="feathers" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="wings" type="checkbox" />
-                <LabelInput register={register} errors={errors} name="terrain" required type="text" />
-
-                <input
-                    type="submit"
-                    id="generate-btn"
-                    value="Generate"
-                    disabled={loading}
-                    className={clsx('text-xl bg-pink rounded-lg m-4 p-4 px-8 hover:bg-purple', {
-                        'bg-pinkLight': loading,
-                        'hover:bg-pinkLight': loading,
-                        'text-gray-400': loading,
-                    })}
-                />
-            </form>
-
-            <div>
-                {imageUrl && <img src={imageUrl} alt="dragon" width={1024} height={1024} />}
-                {loading && (
-                    <div className="min-h-screen">
-                        <WhimsySpinner size="lg" />
-                    </div>
-                )}
-                {error && <ErrorBox />}
-            </div>
+        <div
+            style={{ backgroundImage: `url(/${backgroundImage}.svg)` }}
+            className="bg-contain bg-no-repeat bg-center mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 "
+        >
+            <FormProvider {...formMethods}>
+                <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+                    {step < stepOrder.length && !loading && <Step stepNumber={step} setStep={setStep}></Step>}
+                </form>
+                {error && <ErrorBox message={error} />}
+                {loading && <Loading />}
+            </FormProvider>
         </div>
     );
 };

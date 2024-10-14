@@ -30,18 +30,18 @@ const NavLinks: NavLink[] = [
 export const Navigation = () => {
     const pathName = usePathname();
     return (
-        <div className="flex gap-2 items-center place-content-center">
+        <nav className="flex gap-2 items-center place-content-center">
             {NavLinks.map((link) => (
                 <Link
                     key={link.key}
                     href={link.href}
-                    className={clsx('rounded-t-lg text-xl text-pink hover:text-purple p-1', {
+                    className={clsx('rounded-t-lg text-xl text-pinkDark hover:text-purple p-1', {
                         'bg-purpleLight': pathName === link.href,
                     })}
                 >
                     {link.title}
                 </Link>
             ))}
-        </div>
+        </nav>
     );
 };

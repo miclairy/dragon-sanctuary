@@ -43,6 +43,13 @@ Dev DB Migrations to track the changes
 npm run migrate
 ```
 
+### easy test writing with playwright
+
+```bash
+npx playwright test --ui
+npx playwright codegen
+```
+
 ## OpenAI usage
 
 Take care with generating images in dev. By default, it will not call openAI as this cost money.

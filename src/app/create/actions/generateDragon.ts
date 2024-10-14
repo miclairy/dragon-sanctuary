@@ -7,26 +7,20 @@ import { v4 as uuidv4 } from 'uuid';
 import { defaultImage } from '@/app/constants';
 import { createDragon } from '@/app/create/actions/createDragon';
 import { upload } from '@/app/create/actions/upload';
+import { BREATH } from '@/app/create/creationSteps';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 const openai = new OpenAI();
 
-const Breath = {
-    WATER: 'water',
-    FIRE: 'fire',
-    STEAM: 'steam',
-    NONE: 'nothing',
-} as const;
-
 const whatDoesItBreathe = (breathesFire: boolean, breathesWater: boolean) => {
     if (breathesFire && breathesWater) {
-        return Breath.STEAM;
+        return BREATH.STEAM;
     } else if (breathesFire) {
-        return Breath.FIRE;
+        return BREATH.FIRE;
     } else if (breathesWater) {
-        return Breath.WATER;
+        return BREATH.WATER;
     }
-    return Breath.NONE;
+    return BREATH.NONE;
 };
 
 const boolToText = (value: boolean) => {
@@ -41,10 +35,11 @@ const prompt = ({
     waterBreather,
     horns,
     fins,
+    wings,
     feathers,
     terrain,
 }: DragonCreateInput) =>
-    `a realistic ${color} dragon with ${legs} legs that breathes ${whatDoesItBreathe(fireBreather, waterBreather)}, they have ${eyeColor} colored eyes and ${horns} horns and ${boolToText(fins)} fins and ${boolToText(feathers)} feathers. It lives in the ${terrain}`;
+    `a realistic ${color} dragon with ${legs} legs that breathes ${whatDoesItBreathe(fireBreather, waterBreather)}, they have ${eyeColor} colored eyes and ${horns} horns and ${boolToText(fins)} fins and ${boolToText(feathers)} feathers and ${boolToText(wings)} wings. It lives in the ${terrain}`;
 
 const generateImage = async (dragon: DragonCreateInput) => {
     if (process.env.NODE_ENV !== 'development' && process.env.MOCK_OPENAI === 'false') {
