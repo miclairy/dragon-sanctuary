@@ -16,7 +16,7 @@ export const GeneratedResult = ({ imageUrl }: Props) => {
                 className="border-white border-solid border-4"
                 style={{ transform: 'rotate(1deg)' }}
                 src={imageUrl}
-                alt="dragon"
+                alt="the dragon you found"
                 width={1024}
                 height={1024}
             />
