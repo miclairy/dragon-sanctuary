@@ -132,14 +132,13 @@ export const creationSteps: { [k: string]: Question } = {
     },
     breathes: {
         index: 8,
-        content: () =>
-            'You finish your assessment them and they finish their assessment of you with a large ROOOOAARR.\nYou feel....',
+        content: () => 'Time to find out their judgment of you..... ROOOOAARR\nYou feel....',
         secondaryContent: '....when their breath reaches you.',
         options: {
             attribute: 'breathes',
             values: [
-                { title: 'wet', value: BREATH.WATER },
-                { title: 'hot', value: BREATH.FIRE },
+                { title: 'Wet and gasping for air', value: BREATH.WATER },
+                { title: 'Roasted but unburnt', value: BREATH.FIRE },
                 {
                     title: 'Oddly settled',
                     value: BREATH.NONE,
@@ -151,7 +150,7 @@ export const creationSteps: { [k: string]: Question } = {
     name: {
         index: 9,
         content: () =>
-            "You haven't been eaten or burnt so you risk it all and reach out to them.\n...You hear something....\nIs it their name? Their name is...",
+            "You haven't been eaten or burnt so you risk it all and reach out to them.\n...You hear something on the wind....\nIs it their name? Their name is...",
         freeText: { title: 'name' },
         backgroundImage: 'wyvern',
     },
