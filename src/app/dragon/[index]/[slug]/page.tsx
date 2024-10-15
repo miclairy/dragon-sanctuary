@@ -3,8 +3,8 @@ import { s3BucketUrl } from '@/app/constants';
 import { notFound } from 'next/navigation';
 import { getDragon } from '@/app/dragon/actions/getDragon';
 import { alegreya } from '@/app/ui/fonts';
-import { boolToYesNo, dragonBio } from '@/app/textUtils';
 import { Breeds, LEGS } from '@/app/create/creationSteps';
+import { boolToYesNo, dragonBio } from '@/app/dragon/textUtils';
 
 export default async function DragonDetail({ params }: { params: { index: string } }) {
     const dragon = await getDragon(params.index);

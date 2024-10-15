@@ -5,7 +5,7 @@ export const boolToYesNo = (value: boolean) => {
     return value ? 'Yes' : 'No';
 };
 
-export const biggestWeapon = (fire: boolean, water: boolean, horns: number) => {
+const biggestWeapon = (fire: boolean, water: boolean, horns: number) => {
     if (fire) {
         return 'fire';
     } else if (water) {
@@ -22,10 +22,10 @@ export const dragonBio = (dragon: Dragon) => {
     const friendly = `this friendly ${breed ?? 'dragon'} is a pleasure to protect. Their friendly nature can get them into trouble.`;
     const aggressive = `this ${breed ?? 'dragon'} is not to be messed with.`;
     const warning = `Better make sure you stay away from the ${biggestWeapon(fireBreather, waterBreather, horns)}.`;
-    const swim = 'diving in the water, that they call home.';
-    const fly = 'swooping high in the air and ';
+    const swim = 'diving in the water, that they call home';
+    const fly = ' swooping high in the air and';
     const gallop = `galloping around the ${terrain.toLowerCase()}. That they call home`;
-    const personalityText = armored ? friendly : aggressive;
-    const abilityText = `They love ${wings ? fly : ''} ${fins ? swim : gallop}.`;
+    const personalityText = armored ? aggressive : friendly;
+    const abilityText = `They love${wings ? fly : ''} ${fins ? swim : gallop}.`;
     return `Adopted on ${createdAt.toLocaleDateString()} ${personalityText} ${warning} ${abilityText}`;
 };
