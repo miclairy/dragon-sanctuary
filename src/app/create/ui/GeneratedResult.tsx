@@ -13,7 +13,7 @@ export const GeneratedResult = ({ imageUrl }: Props) => {
                 You land again back on the precipice and all you are left with is a picture for your journal.
             </h3>
             <img
-                className="border-white border-solid border-4"
+                className="border-white border-solid border-4 shadow"
                 style={{ transform: 'rotate(1deg)' }}
                 src={imageUrl}
                 alt="the dragon you found"

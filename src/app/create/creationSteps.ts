@@ -11,6 +11,23 @@ export const BREATH = {
 } as const;
 export type Breath = (typeof BREATH)[keyof typeof BREATH];
 
+export const BREED = {
+    Coatyl: 0,
+    Dragon: 4,
+    Wyvern: 2,
+    OctoleggedMonstrosity: 8,
+} as const;
+
+export type Breeds = (typeof BREED)[keyof typeof BREED];
+export type ReverseBreeds = { [V in (typeof BREED)[keyof typeof BREED]]: keyof typeof BREED };
+
+export const LEGS: ReverseBreeds = {
+    0: 'Coatyl',
+    4: 'Dragon',
+    2: 'Wyvern',
+    8: 'OctoleggedMonstrosity',
+} as const;
+
 interface Question {
     index: number;
     content: (v: string) => string;
@@ -90,10 +107,10 @@ export const creationSteps: { [k: string]: Question } = {
         options: {
             attribute: 'legs',
             values: [
-                { title: 'Coatyl', value: 0 },
-                { title: 'Dragon', value: 4 },
-                { title: 'Wyvern', value: 2 },
-                { title: 'Octolegged monstrosity', value: 8 },
+                { title: 'Coatyl', value: BREED.Coatyl },
+                { title: 'Dragon', value: BREED.Dragon },
+                { title: 'Wyvern', value: BREED.Wyvern },
+                { title: 'Octolegged monstrosity', value: BREED.OctoleggedMonstrosity },
             ],
         },
         backgroundImage: 'claw',
