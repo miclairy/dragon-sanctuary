@@ -4,6 +4,7 @@ import { getCachedDragons } from '@/app/gallery/actions/getCached';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Card } from '@/app/gallery/ui/Card';
+import { LIMIT } from '@/app/constants';
 
 export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayDragon[]; count: number }) => {
     const [dragons, setDragons] = useState(initialDragons);
@@ -12,7 +13,8 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
     const loadNext = useCallback(async () => {
         const cursorIndex = dragons[dragons.length - 1].index - 1;
         const newSet = await getCachedDragons(cursorIndex);
-        if (!!newSet) {
+
+        if (!!newSet.length) {
             setDragons([...dragons, ...newSet]);
         }
     }, [dragons]);
@@ -33,7 +35,7 @@ export const DragonList = ({ initialDragons, count }: { initialDragons: DisplayD
                     <Card {...dragon} key={dragon.id}></Card>
                 ))}
             </div>
-            {count > dragons.length && (
+            {count - LIMIT > dragons.length && (
                 <div ref={ref} className="text-center p-2">
                     More fire power below....
                 </div>
