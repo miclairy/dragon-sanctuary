@@ -38,13 +38,13 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain }: Prop
     // todo : add image cdn with optimized image sizes
     // todo : convert images to webp
     return (
-        <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10 ">
+        <div className="lg:mx-20 p-2 rounded-lg mb-10 ">
             <div className="flex flex-wrap justify-center gap-6 pt-4">
                 {dragons.map((dragon) => (
                     <Card {...dragon} key={dragon.id}></Card>
                 ))}
             </div>
-            {count > dragons.length + initialSkip - LIMIT && (
+            {!terrain && count > dragons.length + initialSkip - LIMIT && (
                 <div ref={ref} className="text-center p-2">
                     More fire power below....
                 </div>
