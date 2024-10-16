@@ -2,8 +2,9 @@
 import prisma from '@/lib/db';
 import logger from '../../../../pino/logger';
 import { LIMIT } from '@/app/constants';
+import { Terrain } from '@/app/create/creationSteps';
 
-export const getCachedDragons = async (skip = 0) => {
+export const getCachedDragons = async (terrain?: Terrain | null, skip = 0) => {
     try {
         return await prisma.dragon.findMany({
             take: LIMIT,
@@ -18,6 +19,11 @@ export const getCachedDragons = async (skip = 0) => {
                 imageKey: true,
                 index: true,
             },
+            ...(terrain && {
+                where: {
+                    terrain: terrain,
+                },
+            }),
         });
     } catch (e) {
         logger.error(e);
@@ -25,9 +31,15 @@ export const getCachedDragons = async (skip = 0) => {
     }
 };
 
-export const getDragonCount = async () => {
+export const getDragonCount = async (terrain?: Terrain) => {
     try {
-        return prisma.dragon.count();
+        return prisma.dragon.count({
+            ...(terrain && {
+                where: {
+                    terrain: terrain,
+                },
+            }),
+        });
     } catch (e) {
         logger.error(e);
         throw new Error('Database Error: Failed to count dragons');

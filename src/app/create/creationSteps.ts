@@ -48,7 +48,7 @@ export const TERRAIN = {
     lake: 'lake',
 } as const;
 
-type Terrain = (typeof TERRAIN)[keyof typeof TERRAIN];
+export type Terrain = (typeof TERRAIN)[keyof typeof TERRAIN];
 
 const movementMap: { [K in Terrain]: string } = {
     forest: 'creep into',

@@ -5,26 +5,28 @@ import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Card } from '@/app/gallery/ui/Card';
 import { LIMIT } from '@/app/constants';
+import { Terrain } from '@/app/create/creationSteps';
 
 interface Props {
     initialDragons: DisplayDragon[];
     count: number;
     initialSkip: number;
+    terrain?: Terrain;
 }
 
-export const DragonList = ({ initialDragons, count, initialSkip }: Props) => {
+export const DragonList = ({ initialDragons, count, initialSkip, terrain }: Props) => {
     const [dragons, setDragons] = useState(initialDragons);
     const [skip, setSkip] = useState(initialSkip);
 
     const { ref, inView } = useInView();
 
     const loadNext = useCallback(async () => {
-        const newSet = await getCachedDragons(skip);
+        const newSet = await getCachedDragons(terrain, skip);
         if (!!newSet.length) {
             setDragons([...dragons, ...newSet]);
             setSkip((s) => s + newSet.length);
         }
-    }, [dragons, skip]);
+    }, [dragons, skip, terrain]);
 
     useEffect(() => {
         if (inView) {
@@ -44,7 +46,7 @@ export const DragonList = ({ initialDragons, count, initialSkip }: Props) => {
             </div>
             {count > dragons.length + initialSkip - LIMIT && (
                 <div ref={ref} className="text-center p-2">
-                    More fire power below.... {count} {} {dragons.length}
+                    More fire power below....
                 </div>
             )}
         </div>
