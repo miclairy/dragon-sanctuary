@@ -13,14 +13,14 @@ const Gallery = async ({ params }: { params: { page: string } }) => {
     const page = parseInt(params.page);
     const skip = page ? (page - 1) * LIMIT : 0;
 
-    const dragons = await getCachedDragons(null, skip);
+    const dragons = await getCachedDragons(skip);
     if (!dragons || !dragons.length) {
         return notFound();
     }
 
     return (
         <Suspense fallback={<CardSkeleton />}>
-            <DragonList initialDragons={dragons} count={count - skip} />
+            <DragonList initialDragons={dragons} count={count} initialSkip={skip + dragons.length} />
         </Suspense>
     );
 };
