@@ -12,7 +12,7 @@ const colors = [
 
 export const Rainbow = () => {
     return (
-        <div className="relative w-24 h-12 overflow-hidden opacity-75 -z-1 ">
+        <div className="relative w-20 h-10 lg:w-24 lg:h-12 overflow-hidden opacity-75 -z-1 ">
             {colors.map((color, index) => (
                 <div key={color} className="absolute inset-0 flex items-end justify-center">
                     <div className={`w-[${100 - index * 5}%] h-[${100 - index * 5}%] ${color} rounded-t-full`} />
