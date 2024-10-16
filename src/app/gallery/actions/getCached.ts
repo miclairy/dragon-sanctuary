@@ -3,16 +3,11 @@ import prisma from '@/lib/db';
 import logger from '../../../../pino/logger';
 import { LIMIT } from '@/app/constants';
 
-export const getCachedDragons = async (cursorIndex: number | null, skip = 0) => {
+export const getCachedDragons = async (skip = 0) => {
     try {
         return await prisma.dragon.findMany({
             take: LIMIT,
             skip,
-            ...(cursorIndex && {
-                cursor: {
-                    index: cursorIndex,
-                },
-            }),
             orderBy: {
                 index: 'desc',
             },

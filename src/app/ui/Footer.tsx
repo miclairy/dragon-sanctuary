@@ -12,7 +12,7 @@ export const Footer = () => (
         <a href="https://game-icons.net/?ref=svgrepo.com" target="_blank" rel="noreferrer">
             Game Icons.net
         </a>
-        in CC Attribution License via{' '}
+        in CC Attribution License via
         <a href="https://www.svgrepo.com/" target="_blank" rel="noreferrer">
             SVG Repo
         </a>
