@@ -25,8 +25,8 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: pancake
-        run: echo pancake ${{ github.event.deployment_status.environment_url }}
+      - name: deployment url
+        run: echo Deployment url ${{ github.event.deployment_status.environment_url }}
       - name: Run Playwright tests
         run: npx playwright test
         env:

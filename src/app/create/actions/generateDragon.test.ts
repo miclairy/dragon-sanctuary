@@ -1,5 +1,5 @@
 import { generateDragon } from '@/app/create/actions/generateDragon';
-import { dragon } from '@/app/create/__stubs__/dragon';
+import { dragonInput } from '@/app/create/__stubs__/dragonInput';
 import { createDragon } from '@/app/create/actions/createDragon';
 import { upload } from '@/app/create/actions/upload';
 import { defaultImage } from '@/app/constants';
@@ -31,10 +31,10 @@ describe('Generate Dragon', () => {
     });
 
     it('generates an imageUrl', async () => {
-        const result = await generateDragon(dragon);
+        const result = await generateDragon(dragonInput);
 
         expect(result).toEqual(mockUrl);
-        expect(createDragon).toHaveBeenCalledWith(dragon, mockKey);
+        expect(createDragon).toHaveBeenCalledWith(dragonInput, mockKey);
         expect(upload).toHaveBeenCalledWith(mockKey, mockUrl);
     });
 
@@ -42,10 +42,10 @@ describe('Generate Dragon', () => {
         process.env = Object.assign(process.env, { NODE_ENV: 'development' });
         process.env = Object.assign(process.env, { MOCK_OPENAI: 'true' });
 
-        const result = await generateDragon(dragon);
+        const result = await generateDragon(dragonInput);
 
         expect(result).toEqual(defaultImage);
-        expect(createDragon).toHaveBeenCalledWith(dragon, mockKey);
+        expect(createDragon).toHaveBeenCalledWith(dragonInput, mockKey);
         expect(upload).toHaveBeenCalledWith(mockKey, defaultImage);
     });
 });

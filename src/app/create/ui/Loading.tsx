@@ -1,13 +1,14 @@
 import WhimsySpinner from '@/app/ui/WhimsySpinner';
 import { useEffect, useState } from 'react';
 
-const endMessages = [
+export const endMessages = [
     'Wait, where did they go?',
     'You feel a shove from below.',
     'Is that them?...',
     'Are we flying?...',
     'UP UP UP....',
 ];
+
 export const Loading = () => {
     const [currentMessage, setCurrentMessage] = useState(endMessages[0]);
     const [isVisible, setIsVisible] = useState(true);

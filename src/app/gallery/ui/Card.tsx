@@ -17,7 +17,7 @@ export const Card = ({ index, slug, imageKey, name }: DisplayDragon) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <Link href={`/dragon/${index}/${slug}`} className="p-2">
-                {name} {index}
+                {name}
                 {imageKey && (
                     <Image
                         src={`${s3BucketUrl}${imageKey}.png`}
