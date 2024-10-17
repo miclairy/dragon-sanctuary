@@ -6,7 +6,7 @@ export default function Home() {
         <div className="">
             <div
                 style={{ backgroundImage: `url(/mountainGrey.svg)` }}
-                className=" bg-no-repeat bg-contain bg-top mt-4 min-h-600px  "
+                className=" bg-no-repeat bg-contain bg-top mt-4 min-h-[600px]  "
             >
                 <TerrainDragons filter={TERRAIN.mountain} />
             </div>
