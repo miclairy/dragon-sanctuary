@@ -41,11 +41,11 @@ interface Question {
 }
 
 export const TERRAIN = {
-    forest: 'forest',
-    sea: 'sea',
-    meadow: 'meadow',
     mountain: 'mountain',
+    forest: 'forest',
+    meadow: 'meadow',
     lake: 'lake',
+    sea: 'sea',
 } as const;
 
 export type Terrain = (typeof TERRAIN)[keyof typeof TERRAIN];
