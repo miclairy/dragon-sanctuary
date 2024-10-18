@@ -26,10 +26,14 @@ export default function Home() {
                 style={{ backgroundImage: `url(/lake.svg)` }}
                 className="  lg:bg-contain bg-cover bg-top bg-repeat-x min-h-[500px]  "
             >
-                <TerrainDragons filter={TERRAIN.meadow} />
+                <TerrainDragons filter={TERRAIN.lake} />
             </div>
-            {/*<TerrainDragons filter={TERRAIN.lake} />*/}
-            {/*<TerrainDragons filter={TERRAIN.sea} />*/}
+            <div
+                style={{ backgroundImage: `url(/sea.svg)` }}
+                className="  lg:bg-contain bg-cover bg-top bg-repeat-x min-h-[500px]  "
+            >
+                <TerrainDragons filter={TERRAIN.sea} />
+            </div>
 
             {/*<Image src="/purpleDragon.png" alt="dragons Flying" width={224} height={224} priority />*/}
         </div>
