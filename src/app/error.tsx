@@ -13,10 +13,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
             <h2 className="text-2xl py-4 text-center ">This needs more testing!</h2>
             <button
                 className="mt-4 rounded-md bg-purple px-4 py-2 text-sm text-white transition-colors hover:bg-purple-400"
-                onClick={
-                    // Attempt to recover by trying to re-render the invoices route
-                    () => reset()
-                }
+                onClick={() => reset()}
             >
                 Wanna try again?
             </button>

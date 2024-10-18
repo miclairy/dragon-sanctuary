@@ -41,14 +41,14 @@ interface Question {
 }
 
 export const TERRAIN = {
-    forest: 'forest',
-    sea: 'sea',
-    meadow: 'meadow',
     mountain: 'mountain',
+    forest: 'forest',
+    meadow: 'meadow',
     lake: 'lake',
+    sea: 'sea',
 } as const;
 
-type Terrain = (typeof TERRAIN)[keyof typeof TERRAIN];
+export type Terrain = (typeof TERRAIN)[keyof typeof TERRAIN];
 
 const movementMap: { [K in Terrain]: string } = {
     forest: 'creep into',

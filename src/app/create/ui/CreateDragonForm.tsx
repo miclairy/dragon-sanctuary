@@ -57,8 +57,6 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
         }
     };
 
-    // pancake todo use nextjs Image component
-
     return (
         <div
             style={{ backgroundImage: `url(/${backgroundImage}.svg)` }}

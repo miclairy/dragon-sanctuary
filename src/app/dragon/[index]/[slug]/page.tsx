@@ -32,35 +32,41 @@ export default async function DragonDetail({ params }: { params: { index: string
 
     return (
         <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10">
-            <h2 className={`text-3xl px-4 ${alegreya.className}`}>{name}</h2>
+            <h2 className={`text-3xl px-4 mt-2 ${alegreya.className}`}>{name}</h2>
             <h3 className={`text-xl px-4 pb-2 italic ${alegreya.className}`}>
                 {terrain[0].toUpperCase()}
                 {terrain.slice(1)} {LEGS[legs as Breeds]}
             </h3>
+            <p className="px-4 text-lg center mb-4">{dragonBio(dragon)}</p>
 
-            {imageKey && (
-                <Image
-                    priority
-                    src={`${s3BucketUrl}${imageKey}.png`}
-                    width="1024"
-                    height="1024"
-                    alt={name}
-                    className="border-white border-solid border-4 shadow m-2 "
-                    style={{ transform: 'rotate(1deg)' }}
-                />
-            )}
-            <div className="lg:flex ">
-                <p className="py-4 lg:px-4 text-lg center w-full">{dragonBio(dragon)}</p>
-
+            <div className="lg:flex place-content-center ">
+                {imageKey && (
+                    <Image
+                        priority
+                        src={`${s3BucketUrl}${imageKey}.png`}
+                        width="800"
+                        height="800"
+                        alt={name}
+                        className="border-white border-solid border-4 shadow m-2 mx-auto"
+                        style={{ transform: 'rotate(1deg)' }}
+                    />
+                )}
                 <table
                     cellPadding="4"
                     cellSpacing="0"
                     border={1}
-                    className="my-2 border-dashed border-blue border-2 w-full mx-auto"
+                    className="my-2 border-dashed border-blue border-2 lg:w-auto lg:mb-auto lg:ml-0.5 lg:align-top w-full mx-auto z-10 bg-blueLight bg-opacity-75"
                 >
+                    <thead>
+                        <tr>
+                            <th className=" border-dashed border-blue border-2 bg-pinkLight  " colSpan={2}>
+                                Attributes
+                            </th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td className=" border-dashed border-blue border-2"> Color:</td>
+                            <td className=" border-dashed border-blue border-2 "> Color:</td>
                             <td className=" border-dashed border-blue border-2"> {color}</td>
                         </tr>
                         <tr className="border-dashed border-blue border-2">
