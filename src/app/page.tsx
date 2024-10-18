@@ -3,14 +3,19 @@ import { TERRAIN } from '@/app/create/creationSteps';
 
 export default function Home() {
     return (
-        <div className="">
+        <div>
             <div
-                style={{ backgroundImage: `url(/mountainGrey.svg)` }}
-                className=" bg-no-repeat bg-contain bg-top mt-4 min-h-[600px]  "
+                style={{ backgroundImage: `url(/mountains.svg)` }}
+                className="  lg:bg-contain bg-cover bg-center bg-repeat-x mt-8 min-h-[600px]  "
             >
                 <TerrainDragons filter={TERRAIN.mountain} />
             </div>
-            {/*<TerrainDragons filter={TERRAIN.forest} />*/}
+            <div
+                style={{ backgroundImage: `url(/forest.svg)` }}
+                className="  lg:bg-contain bg-cover bg-top bg-repeat-x  min-h-[600px]  "
+            >
+                <TerrainDragons filter={TERRAIN.forest} />
+            </div>
             {/*<TerrainDragons filter={TERRAIN.meadow} />*/}
             {/*<TerrainDragons filter={TERRAIN.lake} />*/}
             {/*<TerrainDragons filter={TERRAIN.sea} />*/}

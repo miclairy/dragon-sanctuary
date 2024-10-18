@@ -24,7 +24,7 @@ export const Card = ({ index, slug, imageKey, name }: DisplayDragon) => {
                         width={width}
                         height={height}
                         alt={name}
-                        className="rounded-xl border-solid-purple"
+                        className="rounded-xl"
                     />
                 )}
                 <div
