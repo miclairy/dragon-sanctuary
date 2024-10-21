@@ -1,7 +1,6 @@
 import { generateDragon } from '@/app/create/actions/generateDragon';
 import { dragonInput } from '@/app/create/__stubs__/dragonInput';
 import { createDragon } from '@/app/create/actions/createDragon';
-import { upload } from '@/app/create/actions/upload';
 import { defaultImage } from '@/app/constants';
 
 jest.mock('./createDragon');
@@ -20,7 +19,6 @@ jest.mock('openai', () => {
         })),
     };
 });
-jest.mock('@aws-sdk/client-s3');
 
 describe('Generate Dragon', () => {
     const mockUrl = 'mockUrl';
@@ -33,9 +31,8 @@ describe('Generate Dragon', () => {
     it('generates an imageUrl', async () => {
         const result = await generateDragon(dragonInput);
 
-        expect(result).toEqual(mockUrl);
+        expect(result).toEqual({ url: mockUrl, imageKey: mockKey });
         expect(createDragon).toHaveBeenCalledWith(dragonInput, mockKey);
-        expect(upload).toHaveBeenCalledWith(mockKey, mockUrl);
     });
 
     it('gives an default imageUrl', async () => {
@@ -44,8 +41,7 @@ describe('Generate Dragon', () => {
 
         const result = await generateDragon(dragonInput);
 
-        expect(result).toEqual(defaultImage);
+        expect(result).toEqual({ url: defaultImage, imageKey: mockKey });
         expect(createDragon).toHaveBeenCalledWith(dragonInput, mockKey);
-        expect(upload).toHaveBeenCalledWith(mockKey, defaultImage);
     });
 });

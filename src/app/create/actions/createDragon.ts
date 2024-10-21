@@ -17,6 +17,7 @@ export const createDragon = async (data: DragonCreateInput, imageKey: string) =>
             } as Dragon,
         });
         revalidatePath(GALLERY);
+        revalidatePath('/');
     } catch (e) {
         logger.error(e);
         throw new Error('Database Error: Failed to create dragon');

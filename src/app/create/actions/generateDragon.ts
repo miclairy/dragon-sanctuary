@@ -6,7 +6,6 @@ import OpenAI from 'openai';
 import { v4 as uuidv4 } from 'uuid';
 import { defaultImage } from '@/app/constants';
 import { createDragon } from '@/app/create/actions/createDragon';
-import { upload } from '@/app/create/actions/upload';
 import { BREATH } from '@/app/create/creationSteps';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
@@ -64,12 +63,8 @@ const generateImage = async (dragon: DragonCreateInput) => {
 export const generateDragon = async (dragon: DragonCreateInput) => {
     const imageKey = uuidv4();
     try {
-        await createDragon(dragon, imageKey);
-        const imageUrl = await generateImage(dragon);
-        if (imageUrl) {
-            await upload(imageKey, imageUrl);
-        }
-        return imageUrl;
+        const [url] = await Promise.all([generateImage(dragon), createDragon(dragon, imageKey)]);
+        return { imageKey, url };
     } catch (e) {
         throw e;
     }

@@ -95,8 +95,8 @@ export const creationSteps: { [k: string]: Question } = {
     },
     eyeColor: {
         index: 3,
-        content: () => `There is something camouflaged in the foliage but its....`,
-        secondaryContent: '....eyes stand out',
+        content: () => `There is something camouflaged in the foliage but its eyes in a radiant....`,
+        secondaryContent: '....color stand out',
         freeText: { title: 'eyeColor' },
         backgroundImage: 'eye',
     },
@@ -174,5 +174,3 @@ export const creationSteps: { [k: string]: Question } = {
 };
 
 export const stepOrder = Object.keys(creationSteps);
-
-// wait where did they go?  You feel a shove from below. Is that them... Are we flying?... UP UP UP....

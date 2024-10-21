@@ -5,7 +5,7 @@ import logger from '../../../../pino/logger';
 const s3Client = new S3({
     region: 'eu-north-1',
 });
-const Bucket = 'dragon-images';
+const Bucket = process.env.AWS_BUCKET;
 
 export const upload = async (imageKey: string, url: string) => {
     try {
