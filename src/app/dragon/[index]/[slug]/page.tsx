@@ -1,10 +1,11 @@
-import Image from 'next/image';
 import { s3BucketUrl } from '@/app/constants';
 import { notFound } from 'next/navigation';
 import { getDragon } from '@/app/dragon/actions/getDragon';
 import { alegreya } from '@/app/ui/fonts';
 import { Breeds, LEGS } from '@/app/create/creationSteps';
-import { boolToYesNo, dragonBio } from '@/app/dragon/textUtils';
+import { dragonBio } from '@/app/dragon/textUtils';
+import { ImageWithFallback } from '@/app/ui/ImageWithFallback';
+import { StatsTable } from '@/app/dragon/ui/StatsTable';
 
 export default async function DragonDetail({ params }: { params: { index: string } }) {
     const dragon = await getDragon(params.index);
@@ -13,22 +14,7 @@ export default async function DragonDetail({ params }: { params: { index: string
         return notFound();
     }
 
-    const {
-        fireBreather,
-        waterBreather,
-        fins,
-        armored,
-        wings,
-        name,
-        legs,
-        terrain,
-        createdAt,
-        imageKey,
-        color,
-        eyeColor,
-        horns,
-        feathers,
-    } = dragon;
+    const { name, legs, terrain, imageKey } = dragon;
 
     return (
         <div className="lg:mx-20 bg-purpleLight p-2 rounded-lg mb-10">
@@ -41,7 +27,7 @@ export default async function DragonDetail({ params }: { params: { index: string
 
             <div className="lg:flex place-content-center ">
                 {imageKey && (
-                    <Image
+                    <ImageWithFallback
                         priority
                         src={`${s3BucketUrl}${imageKey}.png`}
                         width="800"
@@ -51,66 +37,7 @@ export default async function DragonDetail({ params }: { params: { index: string
                         style={{ transform: 'rotate(1deg)' }}
                     />
                 )}
-                <table
-                    cellPadding="4"
-                    cellSpacing="0"
-                    border={1}
-                    className="my-2 border-dashed border-blue border-2 lg:w-auto lg:mb-auto lg:ml-0.5 lg:align-top w-full mx-auto z-10 bg-blueLight bg-opacity-75"
-                >
-                    <thead>
-                        <tr>
-                            <th className=" border-dashed border-blue border-2 bg-pinkLight  " colSpan={2}>
-                                Attributes
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className=" border-dashed border-blue border-2 "> Color:</td>
-                            <td className=" border-dashed border-blue border-2"> {color}</td>
-                        </tr>
-                        <tr className="border-dashed border-blue border-2">
-                            <td className="border-dashed border-blue border-2"> Eye Color:</td>
-                            <td className="border-dashed border-blue border-2"> {eyeColor}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Breathes Fire:</td>
-                            <td className="border-dashed border-blue border-2"> {boolToYesNo(fireBreather)}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Shoots Water:</td>
-                            <td className="border-dashed border-blue border-2"> {boolToYesNo(waterBreather)}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Armor:</td>
-                            <td className="border-dashed border-blue border-2"> {boolToYesNo(armored)}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Horns:</td>
-                            <td className="border-dashed border-blue border-2"> {horns}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Fins:</td>
-                            <td className="border-dashed border-blue border-2"> {boolToYesNo(fins)} </td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Feathers:</td>
-                            <td className="border-dashed border-blue border-2"> {boolToYesNo(feathers)} </td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Wings:</td>
-                            <td className="border-dashed border-blue border-2"> {boolToYesNo(wings)}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Legs:</td>
-                            <td className="border-dashed border-blue border-2"> {legs}</td>
-                        </tr>
-                        <tr>
-                            <td className="border-dashed border-blue border-2"> Adopted:</td>
-                            <td className="border-dashed border-blue border-2"> {createdAt.toLocaleDateString()}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <StatsTable dragon={dragon} />
             </div>
         </div>
     );
