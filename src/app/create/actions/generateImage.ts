@@ -39,8 +39,6 @@ const prompt = ({
     `a realistic ${color} dragon with ${legs} legs that breathes ${whatDoesItBreathe(fireBreather, waterBreather)}, they have ${eyeColor} colored eyes and ${horns} horns and ${boolToText(fins)} fins and ${boolToText(feathers)} feathers and ${boolToText(wings)} wings. It lives in the ${terrain}`;
 
 export const generateImage = async (dragon: DragonCreateInput) => {
-    throw new Error('Generation Error: Failed to create dragon');
-
     if (process.env.NODE_ENV !== 'development' && process.env.MOCK_OPENAI === 'false') {
         try {
             const response = await openai.images.generate({

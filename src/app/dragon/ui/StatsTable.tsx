@@ -1,9 +1,16 @@
-import { boolToYesNo } from '@/app/dragon/textUtils';
+import { capitalize, prettifyValue } from '@/app/dragon/textUtils';
 import { Dragon } from '.prisma/client';
 
 export const StatsTable = ({ dragon }: { dragon: Dragon }) => {
-    const { color, eyeColor, fireBreather, waterBreather, armored, horns, fins, feathers, wings, legs, createdAt } =
-        dragon;
+    const specialKeyTitles = new Map([
+        ['fireBreather', 'Breathes Fire'],
+        ['waterBreather', 'Breathes Water'],
+        ['createdAt', 'Adopted'],
+        ['eyeColor', 'Eye Color'],
+    ]);
+
+    const excludedKeys = new Set(['index', 'id', 'slug', 'imageKey']);
+
     return (
         <table
             cellPadding="4"
@@ -19,50 +26,16 @@ export const StatsTable = ({ dragon }: { dragon: Dragon }) => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td className=" border-dashed border-blue border-2 "> Color:</td>
-                    <td className=" border-dashed border-blue border-2"> {color}</td>
-                </tr>
-                <tr className="border-dashed border-blue border-2">
-                    <td className="border-dashed border-blue border-2"> Eye Color:</td>
-                    <td className="border-dashed border-blue border-2"> {eyeColor}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Breathes Fire:</td>
-                    <td className="border-dashed border-blue border-2"> {boolToYesNo(fireBreather)}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Shoots Water:</td>
-                    <td className="border-dashed border-blue border-2"> {boolToYesNo(waterBreather)}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Armor:</td>
-                    <td className="border-dashed border-blue border-2"> {boolToYesNo(armored)}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Horns:</td>
-                    <td className="border-dashed border-blue border-2"> {horns}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Fins:</td>
-                    <td className="border-dashed border-blue border-2"> {boolToYesNo(fins)} </td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Feathers:</td>
-                    <td className="border-dashed border-blue border-2"> {boolToYesNo(feathers)} </td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Wings:</td>
-                    <td className="border-dashed border-blue border-2"> {boolToYesNo(wings)}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Legs:</td>
-                    <td className="border-dashed border-blue border-2"> {legs}</td>
-                </tr>
-                <tr>
-                    <td className="border-dashed border-blue border-2"> Adopted:</td>
-                    <td className="border-dashed border-blue border-2"> {createdAt.toLocaleDateString()}</td>
-                </tr>
+                {Object.entries(dragon).map(([key, value]) => {
+                    return excludedKeys.has(key) ? null : (
+                        <tr key={key}>
+                            <td className="border-dashed border-blue border-2 ">
+                                {specialKeyTitles.get(key) || capitalize(key)}:
+                            </td>
+                            <td className="border-dashed border-blue border-2">{prettifyValue(value)}</td>
+                        </tr>
+                    );
+                })}
             </tbody>
         </table>
     );

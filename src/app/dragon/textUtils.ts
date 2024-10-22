@@ -1,8 +1,24 @@
 import { Breeds, LEGS } from '@/app/create/creationSteps';
 import { Dragon } from '.prisma/client';
 
-export const boolToYesNo = (value: boolean) => {
+export const capitalize = (value: string) => `${value[0].toUpperCase()}${value.slice(1)}`;
+
+export const boolToYesNo = (value: boolean | null) => {
     return value ? 'Yes' : 'No';
+};
+
+export const prettifyValue = (value: string | number | Date | boolean | null) => {
+    switch (typeof value) {
+        case 'boolean':
+            return boolToYesNo(value);
+        case 'string':
+            return capitalize(value);
+        case 'object':
+            return value === null ? boolToYesNo(value) : value.toLocaleDateString();
+        case 'number':
+        default:
+            return value;
+    }
 };
 
 const biggestWeapon = (fire: boolean, water: boolean, horns: number) => {
