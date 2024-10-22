@@ -4,7 +4,7 @@ on:
 
 jobs:
   test-e2e:
-    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    if: github.event.deployment.environment == 'Preview' && github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:

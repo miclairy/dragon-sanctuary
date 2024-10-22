@@ -4,14 +4,13 @@ import logger from '../../../../pino/logger';
 import { Dragon, Prisma } from '.prisma/client';
 import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
-import { GALLERY } from '@/app/constants';
+import { BUCKET, GALLERY } from '@/app/constants';
 import { v4 as uuidv4 } from 'uuid';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 const s3Client = new S3({
     region: 'eu-north-1',
 });
-const Bucket = process.env.AWS_BUCKET;
 
 const upload = async (imageKey: string, url: string) => {
     try {
@@ -19,7 +18,7 @@ const upload = async (imageKey: string, url: string) => {
         const buffer = Buffer.from(await imageResponse.arrayBuffer());
 
         const command = new PutObjectCommand({
-            Bucket,
+            Bucket: BUCKET,
             Key: `${imageKey}.png`,
             Body: buffer,
             ContentType: 'image/png',
