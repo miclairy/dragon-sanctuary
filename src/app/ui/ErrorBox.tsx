@@ -5,8 +5,8 @@ export const ErrorBox = ({ message }: { message: string }) => {
                 <div className="flex items-center space-x-4">
                     <div className="flex-1 min-w-0">
                         <p className="text-lg font-medium text-gray-900">Trust me somebody is not having a good day</p>
-                        <p className="text-sm text-gray-500 truncate">Something went wrong and we are sad too</p>
-                        <p>{message}</p>
+                        <p className="font-medium text-gray-900 ">Wanna try clicking the button again? ¯\_(ツ)_/¯</p>
+                        <p className="text-sm text-gray-500 truncate">{message}</p>
                     </div>
                 </div>
             </div>

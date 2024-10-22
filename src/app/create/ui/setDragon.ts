@@ -1,13 +1,13 @@
 import { Prisma } from '.prisma/client';
-import { upload } from '@/app/create/actions/upload';
-import { generateDragon } from '@/app/create/actions/generateDragon';
+import { saveDragon } from '@/app/create/actions/saveDragon';
+import { generateImage } from '@/app/create/actions/generateImage';
 
 export const setDragon = async (setImageUrl: (v: string) => void, data: Prisma.DragonCreateInput) => {
     try {
-        const { imageKey, url } = await generateDragon(data);
+        const url = await generateImage(data);
         if (url) {
             setImageUrl(url);
-            await upload(imageKey, url);
+            await saveDragon(url, data);
         } else {
             return 'AAAHHHH!! Falling to death is painful';
         }

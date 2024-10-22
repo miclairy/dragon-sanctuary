@@ -1,10 +1,13 @@
 import { setDragon } from '@/app/create/ui/setDragon';
 import { dragonInput } from '@/app/create/__stubs__/dragonInput';
-import { upload } from '@/app/create/actions/upload';
-import { createDragon } from '@/app/create/actions/createDragon';
+import { saveDragon } from '@/app/create/actions/saveDragon';
+import { generateImage } from '@/app/create/actions/generateImage';
 
-jest.mock('../actions/createDragon');
-jest.mock('../actions/upload');
+jest.mock('../actions/saveDragon');
+jest.mock('../actions/generateImage', () => ({
+    ...jest.requireActual('../actions/generateImage'),
+    generateImage: jest.fn(),
+}));
 
 jest.mock('uuid', () => ({
     v4: jest.fn().mockReturnValue('mockKey'),
@@ -22,7 +25,8 @@ jest.mock('openai', () => {
 
 describe('Set Dragon', () => {
     const mockUrl = 'mockUrl';
-    const mockKey = 'mockKey';
+    const mockedGenerate = jest.mocked(generateImage);
+
     beforeAll(() => {
         process.env = Object.assign(process.env, { NODE_ENV: 'production' });
         process.env = Object.assign(process.env, { MOCK_OPENAI: 'false' });
@@ -32,25 +36,24 @@ describe('Set Dragon', () => {
         jest.clearAllMocks();
     });
 
-    it('uploads dragon to s3', async () => {
+    it('stores dragon and image', async () => {
         const setImageUrl = jest.fn();
-
+        mockedGenerate.mockResolvedValue(mockUrl);
         const error = await setDragon(setImageUrl, dragonInput);
         expect(error).toBeUndefined();
         expect(setImageUrl).toHaveBeenCalledWith(mockUrl);
-        expect(upload).toHaveBeenCalledWith(mockKey, mockUrl);
+        expect(saveDragon).toHaveBeenCalledWith(mockUrl, dragonInput);
     });
 
-    it('relays error back', async () => {
+    it('does not store dragon if generation fails', async () => {
         const setImageUrl = jest.fn();
         const errorMessage = 'test error';
 
-        const mockedCreate = jest.mocked(createDragon);
-        mockedCreate.mockRejectedValue(new Error(errorMessage));
+        mockedGenerate.mockRejectedValue(new Error(errorMessage));
         const error = await setDragon(setImageUrl, dragonInput);
 
         expect(error).toBe(errorMessage);
         expect(setImageUrl).not.toHaveBeenCalled();
-        expect(upload).not.toHaveBeenCalled();
+        expect(saveDragon).not.toHaveBeenCalled();
     });
 });

@@ -15,7 +15,7 @@
     "postinstall": "prisma generate && prisma migrate deploy",
     "migrate": "prisma migrate dev",
     "type-check": "tsc --noEmit",
-    "check-all": "npm run type-check && npm run lint && npm run test"
+    "check-all": "npm run type-check && npm run lint && npm run test && npm run test:e2e"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed/seed.ts"

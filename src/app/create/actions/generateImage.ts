@@ -3,9 +3,7 @@
 import { Prisma } from '.prisma/client';
 import logger from '../../../../pino/logger';
 import OpenAI from 'openai';
-import { v4 as uuidv4 } from 'uuid';
 import { defaultImage } from '@/app/constants';
-import { createDragon } from '@/app/create/actions/createDragon';
 import { BREATH } from '@/app/create/creationSteps';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
@@ -40,7 +38,9 @@ const prompt = ({
 }: DragonCreateInput) =>
     `a realistic ${color} dragon with ${legs} legs that breathes ${whatDoesItBreathe(fireBreather, waterBreather)}, they have ${eyeColor} colored eyes and ${horns} horns and ${boolToText(fins)} fins and ${boolToText(feathers)} feathers and ${boolToText(wings)} wings. It lives in the ${terrain}`;
 
-const generateImage = async (dragon: DragonCreateInput) => {
+export const generateImage = async (dragon: DragonCreateInput) => {
+    throw new Error('Generation Error: Failed to create dragon');
+
     if (process.env.NODE_ENV !== 'development' && process.env.MOCK_OPENAI === 'false') {
         try {
             const response = await openai.images.generate({
@@ -57,15 +57,5 @@ const generateImage = async (dragon: DragonCreateInput) => {
         }
     } else {
         return defaultImage;
-    }
-};
-
-export const generateDragon = async (dragon: DragonCreateInput) => {
-    const imageKey = uuidv4();
-    try {
-        const [url] = await Promise.all([generateImage(dragon), createDragon(dragon, imageKey)]);
-        return { imageKey, url };
-    } catch (e) {
-        throw e;
     }
 };
