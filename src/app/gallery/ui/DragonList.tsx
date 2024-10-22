@@ -41,10 +41,17 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain }: Prop
         <div className="lg:mx-20 p-2 rounded-lg  ">
             <div className="flex flex-wrap justify-center gap-6 pt-4">
                 {dragons.map((dragon) => (
-                    <Card {...dragon} key={dragon.id}></Card>
+                    <div key={dragon.id} className="group">
+                        <Card {...dragon} key={dragon.id} terrain={terrain} />
+                    </div>
                 ))}
             </div>
             {!terrain && count > dragons.length + initialSkip - LIMIT && (
+                <div ref={ref} className="text-center p-2">
+                    More fire power below....
+                </div>
+            )}
+            {terrain && 12 > dragons.length && count > dragons.length && (
                 <div ref={ref} className="text-center p-2">
                     More fire power below....
                 </div>
