@@ -1,14 +1,12 @@
+'use client';
 import { s3BucketUrl } from '@/app/constants';
 import Link from 'next/link';
-import { DisplayDragon } from '@/app/gallery/model';
 import { ImageWithFallback } from '@/app/ui/ImageWithFallback';
 import Image from 'next/image';
 import { Terrain } from '@/app/create/creationSteps';
 import clsx from 'clsx';
-
-interface Props extends DisplayDragon {
-    terrain?: Terrain;
-}
+import { CardProps } from '@/app/ui/DragonList';
+import { FC } from 'react';
 
 const terrainImgCover: { [K in Terrain]: string } = {
     forest: 'leaves',
@@ -18,7 +16,7 @@ const terrainImgCover: { [K in Terrain]: string } = {
     mountain: 'cloud',
 };
 
-export const Card = ({ index, slug, imageKey, name, terrain }: Props) => {
+export const PeekabooCard: FC<CardProps> = ({ index, slug, imageKey, name, terrain }: CardProps) => {
     const width = 200;
     const height = 200;
 
@@ -29,7 +27,7 @@ export const Card = ({ index, slug, imageKey, name, terrain }: Props) => {
                     src={`${terrainImgCover[terrain]}.svg`}
                     width={200}
                     height={50}
-                    alt="fluffy cloud"
+                    alt={`cartoon ${terrainImgCover[terrain]} partially hiding the dragon`}
                     className="-z-10 z-0 absolute opacity-95 rotate-6 duration-700 ease-in-out transition transform group-hover:translate-y-1  group-hover:translate-x-12 group-hover:rotate-12 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
                 />
             )}

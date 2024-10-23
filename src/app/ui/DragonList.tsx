@@ -1,9 +1,8 @@
 'use client';
 import { DisplayDragon } from '@/app/gallery/model';
 import { getCachedDragons } from '@/app/gallery/actions/getCached';
-import { useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Card } from '@/app/gallery/ui/Card';
 import { LIMIT } from '@/app/constants';
 import { Terrain } from '@/app/create/creationSteps';
 
@@ -11,10 +10,16 @@ interface Props {
     initialDragons: DisplayDragon[];
     count: number;
     initialSkip: number;
+    Card: FC<CardProps>;
     terrain?: Terrain;
 }
 
-export const DragonList = ({ initialDragons, count, initialSkip, terrain }: Props) => {
+export interface CardProps extends DisplayDragon {
+    terrain?: Terrain;
+}
+
+const MAX_RECENT = 8;
+export const DragonList = ({ initialDragons, count, initialSkip, terrain, Card }: Props) => {
     const [dragons, setDragons] = useState(initialDragons);
     const [skip, setSkip] = useState(initialSkip);
 
@@ -46,12 +51,7 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain }: Prop
                     </div>
                 ))}
             </div>
-            {!terrain && count > dragons.length + initialSkip - LIMIT && (
-                <div ref={ref} className="text-center p-2">
-                    More fire power below....
-                </div>
-            )}
-            {terrain && 12 > dragons.length && count > dragons.length && (
+            {count > dragons.length + initialSkip - LIMIT && (terrain ? MAX_RECENT > dragons.length : true) && (
                 <div ref={ref} className="text-center p-2">
                     More fire power below....
                 </div>
