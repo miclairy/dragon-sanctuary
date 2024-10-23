@@ -18,7 +18,7 @@ export const TerrainDragons = async ({ filter }: { filter: Terrain }) => {
         <Suspense fallback={<CardSkeleton />}>
             <h2 className={`${alegreya.className} text-3xl mx-2 lg:mx-20 text-purple`}>
                 {' '}
-                Last seen in the {capitalize(filter)}
+                Last seen hiding in the {capitalize(filter)}
             </h2>
             <DragonList initialDragons={dragons} terrain={filter} count={count} initialSkip={dragons.length} />
         </Suspense>

@@ -13,7 +13,7 @@ interface Props extends DisplayDragon {
 const terrainImgCover: { [K in Terrain]: string } = {
     forest: 'leaves',
     sea: 'fish',
-    lake: 'rock',
+    lake: 'lakePlant',
     meadow: 'flower',
     mountain: 'cloud',
 };
