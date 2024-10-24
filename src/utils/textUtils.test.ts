@@ -1,9 +1,9 @@
 import { TERRAIN } from '@/app/create/creationSteps';
-import { dragonBio } from '@/app/dragon/textUtils';
 import { dragon } from '@/app/dragon/__stubs__/dragon';
+import { dragonBio } from '@/utils/textUtils';
 
 describe('dragonBio', () => {
-    const expected = 'Adopted on 2/2/2022 ';
+    const expected = 'Adopted on Wed Feb 02 2022 ';
     const warningText = ` Better make sure you stay away from the horns. `;
     const friendlyText = `this friendly Dragon is a pleasure to protect. Their friendly nature can get them into trouble.`;
 

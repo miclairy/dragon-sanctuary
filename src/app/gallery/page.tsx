@@ -1,9 +1,10 @@
 import { getCachedDragons, getDragonCount } from '@/app/gallery/actions/getCached';
 import { Suspense } from 'react';
 import { CardSkeleton } from '@/app/gallery/ui/CardSkeleton';
-import { DragonList } from '@/app/gallery/ui/DragonList';
 import { LIMIT } from '@/app/constants';
 import { notFound } from 'next/navigation';
+import { DragonList } from '@/app/ui/DragonList';
+import { PhotoCard } from '@/app/gallery/ui/PhotoCard';
 
 const Gallery = async ({ params }: { params: { page: string } }) => {
     const count = await getDragonCount();
@@ -20,7 +21,7 @@ const Gallery = async ({ params }: { params: { page: string } }) => {
 
     return (
         <Suspense fallback={<CardSkeleton />}>
-            <DragonList initialDragons={dragons} count={count} initialSkip={skip + dragons.length} />
+            <DragonList initialDragons={dragons} count={count} initialSkip={skip + dragons.length} Card={PhotoCard} />
         </Suspense>
     );
 };

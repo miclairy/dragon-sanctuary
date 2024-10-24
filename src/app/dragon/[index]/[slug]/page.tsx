@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation';
 import { getDragon } from '@/app/dragon/actions/getDragon';
 import { alegreya } from '@/app/ui/fonts';
 import { Breeds, LEGS } from '@/app/create/creationSteps';
-import { capitalize, dragonBio } from '@/app/dragon/textUtils';
 import { ImageWithFallback } from '@/app/ui/ImageWithFallback';
 import { StatsTable } from '@/app/dragon/ui/StatsTable';
+import { capitalize, dragonBio } from '@/utils/textUtils';
 
 export default async function DragonDetail({ params }: { params: { index: string } }) {
     const dragon = await getDragon(params.index);

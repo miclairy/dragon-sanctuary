@@ -14,7 +14,7 @@ export const prettifyValue = (value: string | number | Date | boolean | null) =>
         case 'string':
             return capitalize(value);
         case 'object':
-            return value === null ? boolToYesNo(value) : value.toLocaleDateString();
+            return value === null ? boolToYesNo(value) : value.toDateString();
         case 'number':
         default:
             return value;
@@ -43,5 +43,5 @@ export const dragonBio = (dragon: Dragon) => {
     const gallop = `galloping around the ${terrain.toLowerCase()}. That they call home`;
     const personalityText = armored ? aggressive : friendly;
     const abilityText = `They love${wings ? fly : ''} ${fins ? swim : gallop}.`;
-    return `Adopted on ${createdAt.toLocaleDateString()} ${personalityText} ${warning} ${abilityText}`;
+    return `Adopted on ${prettifyValue(createdAt)} ${personalityText} ${warning} ${abilityText}`;
 };
