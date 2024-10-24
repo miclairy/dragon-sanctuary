@@ -49,7 +49,9 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain, Card }
                     <Card {...dragon} key={dragon.id} terrain={terrain} />
                 ))}
             </div>
-            {count > dragons.length + initialSkip - LIMIT && (terrain ? MAX_RECENT > dragons.length : true) && (
+            {(terrain
+                ? MAX_RECENT > dragons.length && count > dragons.length
+                : count > dragons.length + initialSkip - LIMIT) && (
                 <div ref={ref} className="text-center p-2">
                     More fire power below....
                 </div>
