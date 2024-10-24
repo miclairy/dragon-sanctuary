@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Terrain } from '@/app/create/creationSteps';
 import clsx from 'clsx';
 import { CardProps } from '@/app/ui/DragonList';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 const terrainImgCover: { [K in Terrain]: string } = {
     forest: 'leaves',
@@ -19,21 +19,29 @@ const terrainImgCover: { [K in Terrain]: string } = {
 export const PeekabooCard: FC<CardProps> = ({ index, slug, imageKey, name, terrain }: CardProps) => {
     const width = 200;
     const height = 200;
+    const [hovered, setHovered] = useState(false);
 
     return (
-        <div className="group">
-            <Link
-                href={`/dragon/${index}/${slug}`}
-                className="p-1 hover:opacity-85 ease-in-out duration-700 transition transform  group-hover:translate-y-12"
-            >
+        <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+            <Link href={`/dragon/${index}/${slug}`} className="p-1 ">
                 {terrain && (
                     <Image
                         src={`${terrainImgCover[terrain]}.svg`}
                         width={width}
                         height={height}
                         alt={`cartoon ${terrainImgCover[terrain]} partially hiding the dragon`}
-                        style={{ marginTop: '-2em' }}
-                        className="z-0 absolute  opacity-95 rotate-6 duration-700 ease-in-out transition transform group-hover:translate-y-1  group-hover:translate-x-12 group-hover:rotate-12 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
+                        style={{
+                            marginTop: '-2em',
+                            opacity: '0.95',
+                            transitionProperty: 'all',
+                            transitionDuration: '700ms',
+                            transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                            ...(hovered && {
+                                translate: '3em -2em',
+                                rotate: '-12deg',
+                            }),
+                        }}
+                        className="z-0 absolute"
                     />
                 )}
 
