@@ -1,5 +1,5 @@
-import { capitalize, prettifyValue } from '@/app/dragon/textUtils';
 import { Dragon } from '.prisma/client';
+import { capitalize, prettifyValue } from '@/utils/textUtils';
 
 export const StatsTable = ({ dragon }: { dragon: Dragon }) => {
     const specialKeyTitles = new Map([

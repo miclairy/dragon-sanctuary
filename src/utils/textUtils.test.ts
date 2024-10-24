@@ -1,6 +1,6 @@
 import { TERRAIN } from '@/app/create/creationSteps';
-import { dragonBio } from '@/app/dragon/textUtils';
 import { dragon } from '@/app/dragon/__stubs__/dragon';
+import { dragonBio } from '@/utils/textUtils';
 
 describe('dragonBio', () => {
     const expected = 'Adopted on Wed Feb 02 2022 ';

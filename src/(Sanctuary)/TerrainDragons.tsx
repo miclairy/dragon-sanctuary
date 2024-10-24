@@ -1,9 +1,9 @@
 import { getCachedDragons, getDragonCount } from '@/app/gallery/actions/getCached';
 import { Terrain } from '@/app/create/creationSteps';
-import { capitalize } from '@/app/dragon/textUtils';
 import { alegreya } from '@/app/ui/fonts';
 import { DragonList } from '@/app/ui/DragonList';
 import { PeekabooCard } from '@/(Sanctuary)/PeekabooCard';
+import { capitalize } from '@/utils/textUtils';
 
 export const TerrainDragons = async ({ filter }: { filter: Terrain }) => {
     const count = await getDragonCount(filter);
