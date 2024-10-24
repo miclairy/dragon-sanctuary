@@ -21,22 +21,23 @@ export const PeekabooCard: FC<CardProps> = ({ index, slug, imageKey, name, terra
     const height = 200;
 
     return (
-        <div>
-            {terrain && (
-                <Image
-                    src={`${terrainImgCover[terrain]}.svg`}
-                    width={200}
-                    height={50}
-                    alt={`cartoon ${terrainImgCover[terrain]} partially hiding the dragon`}
-                    className="-z-10 z-0 absolute opacity-95 rotate-6 duration-700 ease-in-out transition transform group-hover:translate-y-1  group-hover:translate-x-12 group-hover:rotate-12 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
-                />
-            )}
-
+        <div className="group">
             <Link
                 href={`/dragon/${index}/${slug}`}
-                className="p-2 hover:opacity-85 ease-in-out duration-700 transition transform  group-hover:translate-y-12"
+                className="p-1 hover:opacity-85 ease-in-out duration-700 transition transform  group-hover:translate-y-12"
             >
-                <p className="absolute text-lg text-purpleDark bg-blueLight rounded-xl mt-2 ml-2 p-1">{name}</p>
+                {terrain && (
+                    <Image
+                        src={`${terrainImgCover[terrain]}.svg`}
+                        width={width}
+                        height={height}
+                        alt={`cartoon ${terrainImgCover[terrain]} partially hiding the dragon`}
+                        style={{ marginTop: '-2em' }}
+                        className="z-0 absolute  opacity-95 rotate-6 duration-700 ease-in-out transition transform group-hover:translate-y-1  group-hover:translate-x-12 group-hover:rotate-12 motion-reduce:transition-none motion-reduce:group-hover:transform-none"
+                    />
+                )}
+
+                <p className=" absolute text-lg text-purpleDark bg-blueLight rounded-xl mt-2 ml-2 p-1">{name}</p>
                 {imageKey && (
                     <ImageWithFallback
                         src={`${s3BucketUrl}${imageKey}.png`}

@@ -44,11 +44,9 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain, Card }
     // todo : convert images to webp
     return (
         <div className="lg:mx-20 p-2 rounded-lg  ">
-            <div className="flex flex-wrap justify-center gap-6 pt-4">
+            <div className="flex flex-wrap justify-center gap-4 pt-4">
                 {dragons.map((dragon) => (
-                    <div key={dragon.id} className="group">
-                        <Card {...dragon} key={dragon.id} terrain={terrain} />
-                    </div>
+                    <Card {...dragon} key={dragon.id} terrain={terrain} />
                 ))}
             </div>
             {count > dragons.length + initialSkip - LIMIT && (terrain ? MAX_RECENT > dragons.length : true) && (
