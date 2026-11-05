@@ -34,7 +34,7 @@ export const Navigation = () => {
         <nav className="pt-8 pb-4 flex  items-center place-content-center">
             {NavLinks.map(({ key, href, title }) => (
                 <div key={key}>
-                    <div className="absolute ml-[1rem] lg:-mt-9 -mt-7 ">{pathName === href && <Rainbow />}</div>
+                    <div className="absolute ml-4 lg:-mt-9 -mt-7 ">{pathName === href && <Rainbow />}</div>
                     <Link
                         key={key}
                         href={href}

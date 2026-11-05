@@ -15,8 +15,8 @@ export const PhotoCard: FC<CardProps> = ({ index, slug, imageKey, name }: CardPr
         <Link
             href={`/dragon/${index}/${slug}`}
             className={clsx('rounded-sm inline-block bg-white p-4 shadow-md ] ', {
-                'rotate-[-2deg]': index % 2 === 0,
-                'rotate-[3deg]': index % 2 !== 0,
+                '-rotate-2': index % 2 === 0,
+                'rotate-3': index % 2 !== 0,
                 'translate-x-[-5px]': index % 3 === 0,
                 'translate-y-[5px]': index % 3 !== 0,
             })}
