@@ -2,12 +2,12 @@ import { generateImage } from '@/app/create/actions/generateImage';
 import { dragonInput } from '@/app/create/__stubs__/dragonInput';
 import { defaultImage } from '@/app/constants';
 
-jest.mock('openai', () => {
+vi.mock('openai', () => {
     return {
         __esModule: true,
-        default: jest.fn().mockImplementation(() => ({
+        default: vi.fn().mockImplementation(() => ({
             images: {
-                generate: jest.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
+                generate: vi.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
             },
         })),
     };

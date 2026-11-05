@@ -9,7 +9,7 @@ export default function Home() {
                     <div
                         key={terrain}
                         style={{ backgroundImage: `url(/backdrops/${terrain}.svg)` }}
-                        className="lg:bg-contain bg-center bg-cover  bg-repeat-x min-h-[500px]  "
+                        className="lg:bg-contain bg-center bg-cover  bg-repeat-x min-h-[500px]"
                     >
                         <TerrainDragons filter={terrain} />
                     </div>

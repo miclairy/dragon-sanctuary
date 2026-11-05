@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ErrorBox } from '@/app/ui/ErrorBox';
 import { Step } from '@/app/create/ui/Step';

@@ -1,8 +1,12 @@
 // https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@/generated/prisma/client';
+
+import { PrismaPg } from '@prisma/adapter-pg';
+
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL });
 
 const prismaClientSingleton = () => {
-    return new PrismaClient();
+    return new PrismaClient({ adapter });
 };
 
 declare const globalThis: {

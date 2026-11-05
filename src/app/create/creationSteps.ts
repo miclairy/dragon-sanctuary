@@ -1,4 +1,4 @@
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 import { Question } from '@/app/create/ui/Question';
 import DragonCreateInput = Prisma.DragonCreateInput;

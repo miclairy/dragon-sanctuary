@@ -1,4 +1,4 @@
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import { saveDragon } from '@/app/create/actions/saveDragon';
 import { generateImage } from '@/app/create/actions/generateImage';
 

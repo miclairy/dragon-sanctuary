@@ -1,4 +1,4 @@
-import { Dragon } from '.prisma/client';
+import { Dragon } from '@/generated/prisma/client';
 import { dragonInput } from '@/app/create/__stubs__/dragonInput';
 
 export const dragon: Dragon = {

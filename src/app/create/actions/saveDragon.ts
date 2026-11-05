@@ -1,7 +1,7 @@
 'use server';
 import { PutObjectCommand, S3 } from '@aws-sdk/client-s3';
 import logger from '../../../../pino/logger';
-import { Dragon, Prisma } from '.prisma/client';
+import { Dragon, Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { BUCKET, GALLERY } from '@/app/constants';

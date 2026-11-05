@@ -1,6 +1,6 @@
 'use server';
 
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import logger from '../../../../pino/logger';
 import OpenAI from 'openai';
 import { defaultImage } from '@/app/constants';
@@ -48,7 +48,7 @@ export const generateImage = async (dragon: DragonCreateInput) => {
                 quality: 'standard',
                 n: 1,
             });
-            return response.data[0].url;
+            return response.data?.[0].url;
         } catch (e) {
             logger.error(e);
             throw new Error('Generation Error: Failed to create dragon');

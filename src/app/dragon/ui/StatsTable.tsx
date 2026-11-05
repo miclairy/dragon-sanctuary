@@ -1,4 +1,5 @@
-import { Dragon } from '.prisma/client';
+import { Dragon } from '@/generated/prisma/client';
+
 import { capitalize, prettifyValue } from '@/utils/textUtils';
 
 export const StatsTable = ({ dragon }: { dragon: Dragon }) => {

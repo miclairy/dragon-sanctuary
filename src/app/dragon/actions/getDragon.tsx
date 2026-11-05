@@ -1,6 +1,6 @@
 'use server';
 import prisma from '@/lib/db';
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import PrismaClientValidationError = Prisma.PrismaClientValidationError;
 
 export const getDragon = async (index: string) => {
