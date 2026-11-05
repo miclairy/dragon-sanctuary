@@ -15,9 +15,10 @@ export const Loading = () => {
 
     useEffect(() => {
         let messageIndex = 1;
+        let messageTimeout: ReturnType<typeof setTimeout> | undefined;
         const cycleMessages = () => {
             setIsVisible(false);
-            setTimeout(() => {
+            messageTimeout = setTimeout(() => {
                 setCurrentMessage(endMessages[messageIndex]);
                 setIsVisible(true);
                 messageIndex = messageIndex + 1;
@@ -26,7 +27,10 @@ export const Loading = () => {
 
         const intervalId = setInterval(cycleMessages, 3000);
 
-        return () => clearInterval(intervalId);
+        return () => {
+            clearTimeout(messageTimeout);
+            clearInterval(intervalId);
+        };
     }, []);
 
     return (

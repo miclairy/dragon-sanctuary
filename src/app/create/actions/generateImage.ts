@@ -51,7 +51,7 @@ export const generateImage = async (dragon: DragonCreateInput) => {
             return response.data?.[0].url;
         } catch (e) {
             logger.error(e);
-            throw new Error('Generation Error: Failed to create dragon');
+            throw new Error('Generation Error: Failed to create dragon', { cause: e });
         }
     } else {
         return defaultImage;

@@ -2,16 +2,14 @@ import { generateImage } from '@/app/create/actions/generateImage';
 import { dragonInput } from '@/app/create/__stubs__/dragonInput';
 import { defaultImage } from '@/app/constants';
 
-vi.mock('openai', () => {
-    return {
-        __esModule: true,
-        default: vi.fn().mockImplementation(() => ({
-            images: {
-                generate: vi.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
-            },
-        })),
-    };
-});
+vi.mock('openai', () => ({
+    // a class, not an arrow fn: generateImage calls `new OpenAI()`
+    default: class {
+        images = {
+            generate: vi.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
+        };
+    },
+}));
 
 describe('Generate Dragon', () => {
     const mockUrl = 'mockUrl';

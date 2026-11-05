@@ -12,6 +12,7 @@ export const GeneratedResult = ({ imageUrl }: Props) => {
             <h3 className="p-4 text-lg">
                 You land again back on the precipice and all you are left with is a picture for your journal.
             </h3>
+            {/* eslint-disable-next-line @next/next/no-img-element -- short-lived OpenAI URL, not worth optimising */}
             <img
                 className="border-white border-solid border-4 shadow"
                 style={{ transform: 'rotate(1deg)' }}

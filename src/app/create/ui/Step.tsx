@@ -46,7 +46,7 @@ export const Step = ({ stepNumber, setStep }: Props) => {
     return (
         <div>
             <div className="p-2">
-                <Question stepNumber={stepNumber} error={!!error} goToNextStep={goToNextStep} />
+                <Question key={stepNumber} stepNumber={stepNumber} error={!!error} goToNextStep={goToNextStep} />
                 {error && (
                     <span role="alert" className="text-rose-800">
                         <i>{error.message}</i>

@@ -1,4 +1,3 @@
-import { FullConfig } from '@playwright/test';
 import { PrismaClient } from '@/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
@@ -21,7 +20,7 @@ export const testDragon = {
     imageKey: '2cf12c4b-cd89-4a3c-84c1-a033fa415231',
 };
 
-async function globalSetup(_config: FullConfig) {
+async function globalSetup() {
     await prisma.dragon.create({
         data: testDragon,
     });

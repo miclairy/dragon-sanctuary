@@ -27,7 +27,7 @@ export const getCachedDragons = async (terrain?: Terrain | null, skip = 0) => {
         });
     } catch (e) {
         logger.error(e);
-        throw new Error('Database Error: Failed to get dragons');
+        throw new Error('Database Error: Failed to get dragons', { cause: e });
     }
 };
 
@@ -42,6 +42,6 @@ export const getDragonCount = async (terrain?: Terrain) => {
         });
     } catch (e) {
         logger.error(e);
-        throw new Error('Database Error: Failed to count dragons');
+        throw new Error('Database Error: Failed to count dragons', { cause: e });
     }
 };

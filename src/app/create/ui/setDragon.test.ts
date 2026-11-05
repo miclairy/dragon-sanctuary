@@ -4,24 +4,22 @@ import { saveDragon } from '@/app/create/actions/saveDragon';
 import { generateImage } from '@/app/create/actions/generateImage';
 
 vi.mock('../actions/saveDragon');
-vi.mock('../actions/generateImage', () => ({
-    ...vi.importActual('../actions/generateImage'),
+vi.mock('../actions/generateImage', async () => ({
+    ...(await vi.importActual('../actions/generateImage')),
     generateImage: vi.fn(),
 }));
 
 vi.mock('uuid', () => ({
     v4: vi.fn().mockReturnValue('mockKey'),
 }));
-vi.mock('openai', () => {
-    return {
-        __esModule: true,
-        default: vi.fn().mockImplementation(() => ({
-            images: {
-                generate: vi.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
-            },
-        })),
-    };
-});
+vi.mock('openai', () => ({
+    // a class, not an arrow fn: generateImage calls `new OpenAI()`
+    default: class {
+        images = {
+            generate: vi.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
+        };
+    },
+}));
 
 describe('Set Dragon', () => {
     const mockUrl = 'mockUrl';
