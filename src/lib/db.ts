@@ -1,16 +1,20 @@
 // https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@/generated/prisma/client';
+
+import { PrismaPg } from '@prisma/adapter-pg';
+
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL });
 
 const prismaClientSingleton = () => {
-    return new PrismaClient();
+    return new PrismaClient({ adapter });
 };
 
-declare const globalThis: {
-    prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+const globalForPrisma = globalThis as unknown as {
+    prismaGlobal: ReturnType<typeof prismaClientSingleton> | undefined;
+};
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+const prisma = globalForPrisma.prismaGlobal ?? prismaClientSingleton();
 
 export default prisma;
 
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prismaGlobal = prisma;

@@ -1,5 +1,5 @@
 import { Breeds, LEGS } from '@/app/create/creationSteps';
-import { Dragon } from '.prisma/client';
+import { Dragon } from '@/generated/prisma/client';
 
 export const capitalize = (value: string) => `${value[0].toUpperCase()}${value.slice(1)}`;
 

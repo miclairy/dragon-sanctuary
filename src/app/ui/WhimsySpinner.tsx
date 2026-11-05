@@ -17,10 +17,10 @@ export default function WhimsySpinner({ size = 'md' }: { size?: 'sm' | 'md' | 'l
 
     return (
         <div className={`relative ${sizeClasses[size]} m-auto`} aria-label="Loading" role="status">
-            {[...Array(8)].map((_, index) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((num, index) => (
                 <motion.div
-                    key={index}
-                    className={`absolute ${dotSize[size]} rounded-full bg-gradient-to-r from-pink to-purple`}
+                    key={num}
+                    className={`absolute ${dotSize[size]} rounded-full bg-linear-to-r from-pink to-purple`}
                     initial={{ scale: 0 }}
                     animate={{
                         scale: [0, 1, 0],

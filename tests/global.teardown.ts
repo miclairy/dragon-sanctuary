@@ -1,10 +1,11 @@
-import { FullConfig } from '@playwright/test';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@/generated/prisma/client';
 import { testDragon } from './global.setup';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL });
+const prisma = new PrismaClient({ adapter });
 
-async function globalTeardown(_config: FullConfig) {
+async function globalTeardown() {
     await prisma.dragon.deleteMany({
         where: { name: testDragon.name },
     });

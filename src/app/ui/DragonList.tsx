@@ -27,7 +27,7 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain, Card }
 
     const loadNext = useCallback(async () => {
         const newSet = await getCachedDragons(terrain, skip);
-        if (!!newSet.length) {
+        if (newSet.length) {
             setDragons([...dragons, ...newSet]);
             setSkip((s) => s + newSet.length);
         }
@@ -46,7 +46,7 @@ export const DragonList = ({ initialDragons, count, initialSkip, terrain, Card }
         <div className="lg:mx-20 p-2 rounded-lg  ">
             <div className="flex flex-wrap justify-center gap-4 pt-4">
                 {dragons.map((dragon) => (
-                    <Card {...dragon} key={dragon.id} terrain={terrain} />
+                    <Card key={dragon.id} {...dragon} terrain={terrain} />
                 ))}
             </div>
             {(terrain

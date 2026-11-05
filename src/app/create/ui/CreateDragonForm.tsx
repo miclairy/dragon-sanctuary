@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ErrorBox } from '@/app/ui/ErrorBox';
 import { Step } from '@/app/create/ui/Step';
@@ -50,7 +50,7 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
             className="bg-contain bg-no-repeat bg-center mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 "
         >
             <FormProvider {...formMethods}>
-                <form name="Create Dragon" onSubmit={formMethods.handleSubmit(onSubmit)}>
+                <form name="Create Dragon" onSubmit={(e) => void formMethods.handleSubmit(onSubmit)(e)}>
                     {step < stepOrder.length && !loading && <Step stepNumber={step} setStep={setStep}></Step>}
                 </form>
                 {error && <ErrorBox message={error} />}

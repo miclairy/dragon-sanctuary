@@ -18,7 +18,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${joseFinSans.className} h-screen flex flex-col antialiased bg-gradient-to-r from-blueLight to-pinkLight`}
+                className={`${joseFinSans.className} h-screen flex flex-col antialiased bg-linear-to-r from-blueLight to-pinkLight`}
             >
                 <header>
                     <CloudHeader />

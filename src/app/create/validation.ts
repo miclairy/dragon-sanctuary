@@ -1,6 +1,6 @@
 import { z, ZodIssue, ZodSchema } from 'zod';
 import { BREATH, TERRAIN } from '@/app/create/creationSteps';
-import { Prisma } from '.prisma/client';
+import { Prisma } from '@/generated/prisma/client';
 import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 import DragonCreateInput = Prisma.DragonCreateInput;
 

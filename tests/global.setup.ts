@@ -1,7 +1,8 @@
-import { FullConfig } from '@playwright/test';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@/generated/prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.POSTGRES_URL });
+const prisma = new PrismaClient({ adapter });
 export const testDragon = {
     name: 'TestDrogon',
     slug: 'testDrogon',
@@ -19,7 +20,7 @@ export const testDragon = {
     imageKey: '2cf12c4b-cd89-4a3c-84c1-a033fa415231',
 };
 
-async function globalSetup(_config: FullConfig) {
+async function globalSetup() {
     await prisma.dragon.create({
         data: testDragon,
     });

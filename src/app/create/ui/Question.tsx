@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { alegreya } from '@/app/ui/fonts';
+import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 
 interface Props {
     stepNumber: number;
@@ -11,11 +12,11 @@ interface Props {
 }
 
 export const Question = ({ stepNumber, error, goToNextStep }: Props) => {
-    const { register, getValues, setValue, setFocus } = useFormContext();
+    const { register, getValues, setValue, setFocus } = useFormContext<CreateDragonForm>();
     const stepName = stepOrder[stepNumber];
     const { content, secondaryContent, options, freeText } = creationSteps[stepName];
     const attribute = options?.attribute ?? freeText?.title;
-    const [selection, setSelection] = useState<string | number | boolean | undefined | null>(
+    const [selection, setSelection] = useState<CreateDragonForm[keyof CreateDragonForm] | null>(() =>
         attribute ? getValues(attribute) : null,
     );
     const optionsRef = useRef<HTMLDivElement>(null);
@@ -28,8 +29,7 @@ export const Question = ({ stepNumber, error, goToNextStep }: Props) => {
         if (optionsRef.current) {
             optionsRef.current.querySelector('button')?.focus();
         }
-        setSelection(attribute ? getValues(attribute) : null);
-    }, [attribute, getValues, setFocus]);
+    }, [attribute, setFocus]);
 
     return (
         <div>

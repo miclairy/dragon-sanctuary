@@ -3,29 +3,27 @@ import { dragonInput } from '@/app/create/__stubs__/dragonInput';
 import { saveDragon } from '@/app/create/actions/saveDragon';
 import { generateImage } from '@/app/create/actions/generateImage';
 
-jest.mock('../actions/saveDragon');
-jest.mock('../actions/generateImage', () => ({
-    ...jest.requireActual('../actions/generateImage'),
-    generateImage: jest.fn(),
+vi.mock('../actions/saveDragon');
+vi.mock('../actions/generateImage', async () => ({
+    ...(await vi.importActual('../actions/generateImage')),
+    generateImage: vi.fn(),
 }));
 
-jest.mock('uuid', () => ({
-    v4: jest.fn().mockReturnValue('mockKey'),
+vi.mock('uuid', () => ({
+    v4: vi.fn().mockReturnValue('mockKey'),
 }));
-jest.mock('openai', () => {
-    return {
-        __esModule: true,
-        default: jest.fn().mockImplementation(() => ({
-            images: {
-                generate: jest.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
-            },
-        })),
-    };
-});
+vi.mock('openai', () => ({
+    // a class, not an arrow fn: generateImage calls `new OpenAI()`
+    default: class {
+        images = {
+            generate: vi.fn().mockReturnValue({ data: [{ url: 'mockUrl' }] }),
+        };
+    },
+}));
 
 describe('Set Dragon', () => {
     const mockUrl = 'mockUrl';
-    const mockedGenerate = jest.mocked(generateImage);
+    const mockedGenerate = vi.mocked(generateImage);
 
     beforeAll(() => {
         process.env = Object.assign(process.env, { NODE_ENV: 'production' });
@@ -33,11 +31,11 @@ describe('Set Dragon', () => {
     });
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('stores dragon and image', async () => {
-        const setImageUrl = jest.fn();
+        const setImageUrl = vi.fn();
         mockedGenerate.mockResolvedValue(mockUrl);
         const error = await setDragon(setImageUrl, dragonInput);
         expect(error).toBeUndefined();
@@ -46,7 +44,7 @@ describe('Set Dragon', () => {
     });
 
     it('does not store dragon if generation fails', async () => {
-        const setImageUrl = jest.fn();
+        const setImageUrl = vi.fn();
         const errorMessage = 'test error';
 
         mockedGenerate.mockRejectedValue(new Error(errorMessage));

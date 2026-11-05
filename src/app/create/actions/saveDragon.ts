@@ -1,7 +1,7 @@
 'use server';
 import { PutObjectCommand, S3 } from '@aws-sdk/client-s3';
 import logger from '../../../../pino/logger';
-import { Dragon, Prisma } from '.prisma/client';
+import { Dragon, Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { BUCKET, GALLERY } from '@/app/constants';
@@ -24,10 +24,10 @@ const upload = async (imageKey: string, url: string) => {
             ContentType: 'image/png',
         });
         const response = await s3Client.send(command);
-        logger.info(`Uploaded to S3: ${response}`);
+        logger.info({ response }, 'Uploaded to S3');
     } catch (err) {
         logger.error(err);
-        throw new Error('Upload Error: Failed to push dragon image');
+        throw new Error('Upload Error: Failed to push dragon image', { cause: err });
     }
 };
 
@@ -47,15 +47,11 @@ const createDragon = async (data: DragonCreateInput, imageKey: string) => {
         return result.id;
     } catch (e) {
         logger.error(e);
-        throw new Error('Database Error: Failed to create dragon');
+        throw new Error('Database Error: Failed to create dragon', { cause: e });
     }
 };
 
 export const saveDragon = async (url: string, dragon: DragonCreateInput) => {
     const imageKey = uuidv4();
-    try {
-        await Promise.all([upload(imageKey, url), createDragon(dragon, imageKey)]);
-    } catch (e) {
-        throw e;
-    }
+    await Promise.all([upload(imageKey, url), createDragon(dragon, imageKey)]);
 };
