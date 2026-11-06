@@ -2,12 +2,11 @@ import { creationSteps, stepOrder } from '@/app/create/creationSteps';
 import { useFormContext } from 'react-hook-form';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Question } from '@/app/create/ui/Question';
-import { ZodIssue } from 'zod';
 import { formSchema } from '@/app/create/validation';
+import { $ZodIssue } from 'zod/v4/core';
 
 interface Props {
     stepNumber: number;
-
     setStep: Dispatch<SetStateAction<number>>;
 }
 
@@ -15,7 +14,7 @@ export const Step = ({ stepNumber, setStep }: Props) => {
     const { getValues } = useFormContext();
     const { options, freeText } = creationSteps[stepOrder[stepNumber]];
     const attribute = options?.attribute ?? freeText?.title;
-    const [error, setError] = useState<ZodIssue | null>();
+    const [error, setError] = useState<$ZodIssue | null>();
     const nextRef = useRef<HTMLButtonElement>(null);
     const validate = () => {
         const { success, error } = attribute
