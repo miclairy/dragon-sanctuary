@@ -47,15 +47,11 @@ export const PeekabooCard: FC<CardProps> = ({ index, slug, imageKey, name, terra
 
                 <p className=" absolute text-lg text-purpleDark bg-blueLight rounded-xl mt-2 ml-2 p-1">{name}</p>
                 {imageKey && (
-                    <ImageWithFallback
-                        src={`${s3BucketUrl}${imageKey}.png`}
+                    <Image
+                        src={`${s3BucketUrl}${imageKey}.svg`}
                         width={width}
                         height={height}
                         alt={`Small image of the dragon ${name}`}
-                        className={clsx('', {
-                            'rounded-full': terrain,
-                            'rounded-xl': !terrain,
-                        })}
                     />
                 )}
             </Link>

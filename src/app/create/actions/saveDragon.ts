@@ -11,16 +11,14 @@ const s3Client = new S3({
     region: 'eu-north-1',
 });
 
-const upload = async (imageKey: string, url: string) => {
+const upload = async (imageKey: string, svg: string) => {
     try {
-        const imageResponse = await fetch(url);
-        const buffer = Buffer.from(await imageResponse.arrayBuffer());
 
         const command = new PutObjectCommand({
             Bucket: BUCKET,
-            Key: `${imageKey}.png`,
-            Body: buffer,
-            ContentType: 'image/png',
+            Key: `${imageKey}.svg`,
+            Body: svg,
+            ContentType: 'image/svg+xml',
         });
         const response = await s3Client.send(command);
         logger.info({ response }, 'Uploaded to S3');
@@ -50,7 +48,7 @@ const createDragon = async (data: DragonCreateInput, imageKey: string) => {
     }
 };
 
-export const saveDragon = async (url: string, dragon: DragonCreateInput) => {
+export const saveDragon = async (svg: string, dragon: DragonCreateInput) => {
     const imageKey = uuidv4();
-    await Promise.all([upload(imageKey, url), createDragon(dragon, imageKey)]);
+    await Promise.all([upload(imageKey, svg), createDragon(dragon, imageKey)]);
 };

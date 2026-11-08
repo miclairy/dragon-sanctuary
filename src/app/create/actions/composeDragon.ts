@@ -8,23 +8,31 @@ import DragonCreateInput = Prisma.DragonCreateInput;
 const FOLDER_DRAGON_PARTS = 'public/dragonParts/';
 
 export const composeDragon = async (dragon: DragonCreateInput) => {
-    const parts = [];
-    if (dragon.horns >= 1) {
-        parts.push('horn-01');
-    }
-    if (dragon.horns >= 2) {
-        parts.push('horn-02');
-    }
-    if (dragon.horns >= 3) {
-        parts.push('horn-03');
-    }
-    if (dragon.horns >= 4) {
-        parts.push('horn-04');
-    }
-    parts.push(`legs-${dragon.legs}`);
-    parts.push('wings');
+  const parts = [];
+  if (dragon.horns >= 1) {
+      parts.push('horn-01');
+  }
+  if (dragon.horns >= 2) {
+      parts.push('horn-02');
+  }
+  if (dragon.horns >= 3) {
+      parts.push('horn-03');
+  }
+  if (dragon.horns >= 4) {
+      parts.push('horn-04');
+  }
+  if (dragon.legs >= 2) {
+      parts.push('legs-2');
+  }
+  if (dragon.legs >= 4) {
+      parts.push('legs-4');
+  }
+  if (dragon.legs >= 8) {
+      parts.push('legs-8');
+  }
+  parts.push('wings');
 
-    return await compositeSVGs(parts);
+  return await compositeSVGs(parts);
 };
 
 async function compositeSVGs(svgs: string[]) {
