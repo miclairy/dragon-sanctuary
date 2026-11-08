@@ -59,7 +59,9 @@ export const validateDragon = (
         fireBreather: z.boolean(),
     });
 
+  console.log('pancake');
     const { success, error } = schema.safeParse(data);
+  console.log('pancake', success, error);
 
     return { success, data, errors: error?.issues };
 };

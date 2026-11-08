@@ -17,8 +17,8 @@ export const PhotoCard: FC<CardProps> = ({ index, slug, imageKey, name }: CardPr
             className={clsx('rounded-sm inline-block bg-white p-4 shadow-md ] ', {
                 '-rotate-2': index % 2 === 0,
                 'rotate-3': index % 2 !== 0,
-                'translate-x-[-5px]': index % 3 === 0,
-                'translate-y-[5px]': index % 3 !== 0,
+                'translate-x-1.25': index % 3 === 0,
+                'translate-y-1.25': index % 3 !== 0,
             })}
         >
             {imageKey && (

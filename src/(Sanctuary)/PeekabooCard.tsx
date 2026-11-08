@@ -1,10 +1,8 @@
 'use client';
 import { s3BucketUrl } from '@/app/constants';
 import Link from 'next/link';
-import { ImageWithFallback } from '@/app/ui/ImageWithFallback';
 import Image from 'next/image';
 import { Terrain } from '@/app/create/creationSteps';
-import clsx from 'clsx';
 import { CardProps } from '@/app/ui/DragonList';
 import { FC, useState } from 'react';
 

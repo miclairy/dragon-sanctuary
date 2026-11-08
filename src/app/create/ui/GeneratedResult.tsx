@@ -16,7 +16,7 @@ export const GeneratedResult = ({ svg }: Props) => {
     return (
         <div className=" mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 ">
             <h3 className="p-4 text-lg">
-                You land again back on the precipice and all you are left with is a picture for your journal.
+                You land again back on the precipice and all you are left with is a sketch for your journal.
             </h3>
             {/*eslint-disable-next-line @next/next/no-img-element -- short-lived svg URL, not worth optimising */}
             <img
