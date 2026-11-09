@@ -3,6 +3,7 @@ import { PutObjectCommand, S3 } from '@aws-sdk/client-s3';
 import logger from '../../../../pino/logger';
 import { Dragon, Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 import { BUCKET } from '@/app/constants';
 import { v4 as uuidv4 } from 'uuid';
 import DragonCreateInput = Prisma.DragonCreateInput;
@@ -39,8 +40,7 @@ const createDragon = async (data: DragonCreateInput, imageKey: string) => {
                 imageKey,
             } as Dragon,
         });
-        // revalidatePath(GALLERY);
-        // revalidatePath('/');
+        revalidatePath('/', 'layout');
         return result.id;
     } catch (e) {
         logger.error(e);
