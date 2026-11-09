@@ -1,4 +1,4 @@
-import { creationSteps, stepOrder } from '@/app/create/creationSteps';
+import { CreationSteps, stepOrder } from '@/app/create/creationSteps';
 import { useFormContext } from 'react-hook-form';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Question } from '@/app/create/ui/Question';
@@ -6,11 +6,12 @@ import { formSchema } from '@/app/create/validation';
 import { $ZodIssue } from 'zod/v4/core';
 
 interface Props {
+    creationSteps: CreationSteps;
     stepNumber: number;
     setStep: Dispatch<SetStateAction<number>>;
 }
 
-export const Step = ({ stepNumber, setStep }: Props) => {
+export const Step = ({ creationSteps, stepNumber, setStep }: Props) => {
     const { getValues } = useFormContext();
     const { options, freeText } = creationSteps[stepOrder[stepNumber]];
     const attribute = options?.attribute ?? freeText?.title;
@@ -45,7 +46,13 @@ export const Step = ({ stepNumber, setStep }: Props) => {
     return (
         <div>
             <div className="p-2">
-                <Question key={stepNumber} stepNumber={stepNumber} error={!!error} goToNextStep={goToNextStep} />
+                <Question
+                    key={stepNumber}
+                    creationSteps={creationSteps}
+                    stepNumber={stepNumber}
+                    error={!!error}
+                    goToNextStep={goToNextStep}
+                />
                 {error && (
                     <span role="alert" className="text-rose-800">
                         <i>{error.message}</i>

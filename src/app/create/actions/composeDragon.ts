@@ -33,12 +33,13 @@ export const composeDragon = async (dragon: DragonCreateInput) => {
   parts.push('wings');
 
     console.log('pancake', dragon.color);
-    return await compositeSVGs(parts, dragon.color);
+    return await compositeSVGs(parts, dragon.color, dragon.eyeColor);
 };
 
-async function compositeSVGs(svgs: string[], colour: string) {
+async function compositeSVGs(svgs: string[], colour: string, eyeColour: string) {
     try {
-        const baseSvg = await readFile(`${FOLDER_DRAGON_PARTS}base.svg`, 'utf8');
+        const rawBaseSvg = await readFile(`${FOLDER_DRAGON_PARTS}base.svg`, 'utf8');
+        const baseSvg = rawBaseSvg.replaceAll('#ffffff', eyeColour)
 
         let layers = '';
         for (const svg of svgs) {

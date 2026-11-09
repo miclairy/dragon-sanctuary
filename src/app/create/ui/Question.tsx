@@ -1,4 +1,4 @@
-import { creationSteps, stepOrder } from '@/app/create/creationSteps';
+import { CreationSteps, stepOrder } from '@/app/create/creationSteps';
 import { useFormContext } from 'react-hook-form';
 import { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -6,12 +6,13 @@ import { alegreya } from '@/app/ui/fonts';
 import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 
 interface Props {
+    creationSteps: CreationSteps;
     stepNumber: number;
     error: boolean;
     goToNextStep: () => void;
 }
 
-export const Question = ({ stepNumber, error, goToNextStep }: Props) => {
+export const Question = ({ creationSteps, stepNumber, error, goToNextStep }: Props) => {
     const { register, getValues, setValue, setFocus } = useFormContext<CreateDragonForm>();
     const stepName = stepOrder[stepNumber];
     const { content, secondaryContent, options, freeText } = creationSteps[stepName];

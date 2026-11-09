@@ -59,7 +59,10 @@ const movementMap: { [K in Terrain]: string } = {
     mountain: 'power up',
 };
 
-export const creationSteps: { [k: string]: Question } = {
+export type CreationSteps = { [k: string]: Question };
+
+// a function so each new form gets freshly picked random colours
+export const getCreationSteps = (): CreationSteps => ({
     intro: {
         index: 0,
         content: () =>
@@ -178,6 +181,6 @@ export const creationSteps: { [k: string]: Question } = {
         freeText: { title: 'name' },
         backgroundImage: 'wyvern',
     },
-};
+});
 
-export const stepOrder = Object.keys(creationSteps);
+export const stepOrder = Object.keys(getCreationSteps());
