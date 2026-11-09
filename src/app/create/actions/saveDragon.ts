@@ -3,8 +3,7 @@ import { PutObjectCommand, S3 } from '@aws-sdk/client-s3';
 import logger from '../../../../pino/logger';
 import { Dragon, Prisma } from '@/generated/prisma/client';
 import prisma from '@/lib/db';
-import { revalidatePath } from 'next/cache';
-import { BUCKET, GALLERY } from '@/app/constants';
+import { BUCKET } from '@/app/constants';
 import { v4 as uuidv4 } from 'uuid';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
@@ -12,16 +11,14 @@ const s3Client = new S3({
     region: 'eu-north-1',
 });
 
-const upload = async (imageKey: string, url: string) => {
+const upload = async (imageKey: string, svg: string) => {
     try {
-        const imageResponse = await fetch(url);
-        const buffer = Buffer.from(await imageResponse.arrayBuffer());
 
         const command = new PutObjectCommand({
             Bucket: BUCKET,
-            Key: `${imageKey}.png`,
-            Body: buffer,
-            ContentType: 'image/png',
+            Key: `${imageKey}.svg`,
+            Body: svg,
+            ContentType: 'image/svg+xml',
         });
         const response = await s3Client.send(command);
         logger.info({ response }, 'Uploaded to S3');
@@ -42,8 +39,8 @@ const createDragon = async (data: DragonCreateInput, imageKey: string) => {
                 imageKey,
             } as Dragon,
         });
-        revalidatePath(GALLERY);
-        revalidatePath('/');
+        // revalidatePath(GALLERY);
+        // revalidatePath('/');
         return result.id;
     } catch (e) {
         logger.error(e);
@@ -51,7 +48,7 @@ const createDragon = async (data: DragonCreateInput, imageKey: string) => {
     }
 };
 
-export const saveDragon = async (url: string, dragon: DragonCreateInput) => {
+export const saveDragon = async (svg: string, dragon: DragonCreateInput) => {
     const imageKey = uuidv4();
-    await Promise.all([upload(imageKey, url), createDragon(dragon, imageKey)]);
+    await Promise.all([upload(imageKey, svg), createDragon(dragon, imageKey)]);
 };

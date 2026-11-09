@@ -16,7 +16,7 @@ describe('dragonBio', () => {
             armored: false,
             wings: false,
         };
-        const abilityText = `They love galloping around the forest. That they call home.`;
+        const abilityText = `They love galloping around the forest, that they call home.`;
 
         expect(dragonBio(testDragon)).toEqual(expected + friendlyText + warningText + abilityText);
     });
@@ -33,7 +33,7 @@ describe('dragonBio', () => {
         };
 
         const aggressiveText = `this Dragon is not to be messed with.`;
-        const abilityText = `They love galloping around the mountain. That they call home.`;
+        const abilityText = `They love galloping around the mountain, that they call home.`;
 
         expect(dragonBio(testDragon)).toEqual(expected + aggressiveText + warningText + abilityText);
     });
@@ -49,7 +49,7 @@ describe('dragonBio', () => {
         };
 
         const warningText = ` Better make sure you stay away from the fire. `;
-        const abilityText = `They love swooping high in the air and galloping around the forest. That they call home.`;
+        const abilityText = `They love swooping high in the air and galloping around the forest, that they call home.`;
 
         expect(dragonBio(testDragon)).toEqual(expected + friendlyText + warningText + abilityText);
     });

@@ -1,6 +1,7 @@
 import { Prisma } from '@/generated/prisma/client';
 import { CreateDragonForm } from '@/app/create/ui/CreateDragonForm';
 import { Question } from '@/app/create/ui/Question';
+import { getColourOptions } from '@/utils/colours';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
 export const BREATH = {
@@ -58,7 +59,10 @@ const movementMap: { [K in Terrain]: string } = {
     mountain: 'power up',
 };
 
-export const creationSteps: { [k: string]: Question } = {
+export type CreationSteps = { [k: string]: Question };
+
+// a function so each new form gets freshly picked random colours
+export const getCreationSteps = (): CreationSteps => ({
     intro: {
         index: 0,
         content: () =>
@@ -90,14 +94,20 @@ export const creationSteps: { [k: string]: Question } = {
         index: 2,
         content: (terrain: string) =>
             `You ${movementMap[terrain as Terrain]} the ${terrain} and find yourself surrounded by raw beauty. Something catches your eye: a grove of strange plants colored with the most fantastic shades of....`,
-        freeText: { title: 'color' },
+        options: {
+            attribute: 'color',
+            values: getColourOptions(),
+        },
         backgroundImage: 'tree',
     },
     eyeColor: {
         index: 3,
         content: () => `There is something camouflaged in the foliage but its eyes in a radiant....`,
         secondaryContent: '....color stand out',
-        freeText: { title: 'eyeColor' },
+        options: {
+            attribute: 'eyeColor',
+            values: getColourOptions(),
+        },
         backgroundImage: 'eye',
     },
     legs: {
@@ -171,6 +181,6 @@ export const creationSteps: { [k: string]: Question } = {
         freeText: { title: 'name' },
         backgroundImage: 'wyvern',
     },
-};
+});
 
-export const stepOrder = Object.keys(creationSteps);
+export const stepOrder = Object.keys(getCreationSteps());

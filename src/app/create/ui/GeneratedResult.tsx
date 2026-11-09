@@ -1,22 +1,28 @@
+import { useState } from 'react';
 interface Props {
-    imageUrl?: string;
+    svg: string;
 }
 
-export const GeneratedResult = ({ imageUrl }: Props) => {
+export const GeneratedResult = ({ svg }: Props) => {
     //todo: pancake add dragon description here
-    if (!imageUrl) {
-        return null;
-    }
+
+    const [objectUrl] = useState(() => {
+        const blob = new Blob([svg], {
+            type: 'image/svg+xml',
+        });
+        return URL.createObjectURL(blob);
+    });
+
     return (
         <div className=" mt-4 max-w-3xl h-3xl mx-auto rounded-xl border-dashed border-blue border-2 ">
             <h3 className="p-4 text-lg">
-                You land again back on the precipice and all you are left with is a picture for your journal.
+                You land again back on the precipice and all you are left with is a sketch for your journal.
             </h3>
-            {/* eslint-disable-next-line @next/next/no-img-element -- short-lived OpenAI URL, not worth optimising */}
+            {/*eslint-disable-next-line @next/next/no-img-element -- short-lived svg URL, not worth optimising */}
             <img
-                className="border-white border-solid border-4 shadow"
+                className="border-white border-solid border-4 shadow p-2 bg-gray-50"
                 style={{ transform: 'rotate(1deg)' }}
-                src={imageUrl}
+                src={objectUrl}
                 alt="the dragon you found"
                 width={1024}
                 height={1024}

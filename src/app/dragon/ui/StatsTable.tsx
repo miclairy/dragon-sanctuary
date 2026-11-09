@@ -30,10 +30,20 @@ export const StatsTable = ({ dragon }: { dragon: Dragon }) => {
                 {Object.entries(dragon).map(([key, value]) => {
                     return excludedKeys.has(key) ? null : (
                         <tr key={key}>
-                            <td className="border-dashed border-blue border-2 ">
+                            <td className="border-dashed border-blue border-2 p-1">
                                 {specialKeyTitles.get(key) || capitalize(key)}:
                             </td>
-                            <td className="border-dashed border-blue border-2">{prettifyValue(value)}</td>
+                            <td
+                                className="border-dashed border-blue border-2 p-1"
+                                style={{
+                                    backgroundColor:
+                                        typeof value === 'string' && /^#([0-9A-F]{3}){1,2}$/i.test(value)
+                                            ? value
+                                            : undefined,
+                                }}
+                            >
+                                {prettifyValue(value)}
+                            </td>
                         </tr>
                     );
                 })}

@@ -7,8 +7,9 @@ import { ImageWithFallback } from '@/app/ui/ImageWithFallback';
 import { StatsTable } from '@/app/dragon/ui/StatsTable';
 import { capitalize, dragonBio } from '@/utils/textUtils';
 
-export default async function DragonDetail({ params }: { params: { index: string } }) {
-    const dragon = await getDragon(params.index);
+export default async function DragonDetail({ params }: { params: Promise<{ index: string }> }) {
+    const { index } = await params;
+    const dragon = await getDragon(index);
 
     if (!dragon) {
         return notFound();
@@ -27,12 +28,12 @@ export default async function DragonDetail({ params }: { params: { index: string
             <div className="lg:flex place-content-center ">
                 {imageKey && (
                     <ImageWithFallback
-                        priority
-                        src={`${s3BucketUrl}${imageKey}.png`}
+                        preload
+                        src={`${s3BucketUrl}${imageKey}.svg`}
                         width="800"
                         height="800"
                         alt={name}
-                        className="border-white border-solid border-4 shadow m-2 mx-auto"
+                        className="border-white border-solid border-4 shadow m-2 mx-auto p-2 bg-gray-50"
                         style={{ transform: 'rotate(1deg)' }}
                     />
                 )}

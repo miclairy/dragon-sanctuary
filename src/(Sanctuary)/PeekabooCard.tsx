@@ -1,10 +1,8 @@
 'use client';
 import { s3BucketUrl } from '@/app/constants';
 import Link from 'next/link';
-import { ImageWithFallback } from '@/app/ui/ImageWithFallback';
 import Image from 'next/image';
 import { Terrain } from '@/app/create/creationSteps';
-import clsx from 'clsx';
 import { CardProps } from '@/app/ui/DragonList';
 import { FC, useState } from 'react';
 
@@ -47,15 +45,11 @@ export const PeekabooCard: FC<CardProps> = ({ index, slug, imageKey, name, terra
 
                 <p className=" absolute text-lg text-purpleDark bg-blueLight rounded-xl mt-2 ml-2 p-1">{name}</p>
                 {imageKey && (
-                    <ImageWithFallback
-                        src={`${s3BucketUrl}${imageKey}.png`}
+                    <Image
+                        src={`${s3BucketUrl}${imageKey}.svg`}
                         width={width}
                         height={height}
                         alt={`Small image of the dragon ${name}`}
-                        className={clsx('', {
-                            'rounded-full': terrain,
-                            'rounded-xl': !terrain,
-                        })}
                     />
                 )}
             </Link>

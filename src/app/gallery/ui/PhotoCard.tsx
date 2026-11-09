@@ -17,17 +17,17 @@ export const PhotoCard: FC<CardProps> = ({ index, slug, imageKey, name }: CardPr
             className={clsx('rounded-sm inline-block bg-white p-4 shadow-md ] ', {
                 '-rotate-2': index % 2 === 0,
                 'rotate-3': index % 2 !== 0,
-                'translate-x-[-5px]': index % 3 === 0,
-                'translate-y-[5px]': index % 3 !== 0,
+                'translate-x-1.25': index % 3 === 0,
+                'translate-y-1.25': index % 3 !== 0,
             })}
         >
             {imageKey && (
                 <ImageWithFallback
-                    src={`${s3BucketUrl}${imageKey}.png`}
+                    src={`${s3BucketUrl}${imageKey}.svg`}
                     width={width}
                     height={height}
-                    alt={`Small image of the dragon ${name}`}
-                    className="rounded"
+                    alt={`Image of the dragon ${name}`}
+                    className="rounded bg-gray-50 p-2"
                 />
             )}
             <p className="text-center text-gray-700 text-lg ">{name}</p>

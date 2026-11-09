@@ -3,7 +3,7 @@ import { Prisma } from '@/generated/prisma/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ErrorBox } from '@/app/ui/ErrorBox';
 import { Step } from '@/app/create/ui/Step';
-import { Breath, creationSteps, stepOrder } from '@/app/create/creationSteps';
+import { Breath, getCreationSteps, stepOrder } from '@/app/create/creationSteps';
 import { validateDragon } from '@/app/create/validation';
 import { Loading } from '@/app/create/ui/Loading';
 import { setDragon } from '@/app/create/ui/setDragon';
@@ -18,6 +18,8 @@ interface Props {
 }
 
 export const CreateDragonForm = ({ setImageUrl }: Props) => {
+    const [creationSteps] = useState(getCreationSteps);
+
     const formMethods = useForm<CreateDragonForm>({
         defaultValues: {
             fins: false,
@@ -51,7 +53,9 @@ export const CreateDragonForm = ({ setImageUrl }: Props) => {
         >
             <FormProvider {...formMethods}>
                 <form name="Create Dragon" onSubmit={(e) => void formMethods.handleSubmit(onSubmit)(e)}>
-                    {step < stepOrder.length && !loading && <Step stepNumber={step} setStep={setStep}></Step>}
+                    {step < stepOrder.length && !loading && (
+                        <Step creationSteps={creationSteps} stepNumber={step} setStep={setStep}></Step>
+                    )}
                 </form>
                 {error && <ErrorBox message={error} />}
                 {loading && <Loading />}
