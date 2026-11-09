@@ -23,11 +23,11 @@ export const PhotoCard: FC<CardProps> = ({ index, slug, imageKey, name }: CardPr
         >
             {imageKey && (
                 <ImageWithFallback
-                    src={`${s3BucketUrl}${imageKey}.png`}
+                    src={`${s3BucketUrl}${imageKey}.svg`}
                     width={width}
                     height={height}
-                    alt={`Small image of the dragon ${name}`}
-                    className="rounded"
+                    alt={`Image of the dragon ${name}`}
+                    className="rounded bg-gray-50 p-2"
                 />
             )}
             <p className="text-center text-gray-700 text-lg ">{name}</p>

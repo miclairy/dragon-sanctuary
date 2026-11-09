@@ -40,7 +40,7 @@ export const dragonBio = (dragon: Dragon) => {
     const warning = `Better make sure you stay away from the ${biggestWeapon(fireBreather, waterBreather, horns)}.`;
     const swim = 'diving in the water, that they call home';
     const fly = ' swooping high in the air and';
-    const gallop = `galloping around the ${terrain.toLowerCase()}. That they call home`;
+    const gallop = `galloping around the ${terrain.toLowerCase()}, that they call home`;
     const personalityText = armored ? aggressive : friendly;
     const abilityText = `They love${wings ? fly : ''} ${fins ? swim : gallop}.`;
     return `Adopted on ${prettifyValue(createdAt)} ${personalityText} ${warning} ${abilityText}`;

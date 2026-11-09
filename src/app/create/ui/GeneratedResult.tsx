@@ -20,7 +20,7 @@ export const GeneratedResult = ({ svg }: Props) => {
             </h3>
             {/*eslint-disable-next-line @next/next/no-img-element -- short-lived svg URL, not worth optimising */}
             <img
-                className="border-white border-solid border-4 shadow"
+                className="border-white border-solid border-4 shadow p-2 bg-gray-50"
                 style={{ transform: 'rotate(1deg)' }}
                 src={objectUrl}
                 alt="the dragon you found"

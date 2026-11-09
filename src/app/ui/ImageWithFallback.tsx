@@ -9,7 +9,8 @@ interface Props extends ImageProps {
 export const ImageWithFallback = ({ fallback = '/purpleDragon.png', alt, src, ...props }: Props) => {
     const [error, setError] = useState<boolean>(false);
 
-    return (
+  return (
+
         <Image
             alt={error ? 'fallback image of a purple dragon' : alt}
             onError={() => setError(true)}
