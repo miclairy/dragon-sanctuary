@@ -12,8 +12,7 @@ vi.mock('uuid', () => ({
 describe('Set Dragon', () => {
 
     beforeAll(() => {
-        process.env = Object.assign(process.env, { NODE_ENV: 'production' });
-        process.env = Object.assign(process.env, { MOCK_OPENAI: 'false' });
+      process.env = Object.assign(process.env, { NODE_ENV: 'production' });
     });
 
     beforeEach(() => {
