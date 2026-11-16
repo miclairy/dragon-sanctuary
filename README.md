@@ -4,7 +4,7 @@ Built with NextJs framework on the app router.
 
 ## To run
 
-First: Copy the env.example to .env and adjust the postgres url to your one. Add the values for open ai and aws
+First: Copy the env.example to .env and adjust the postgres url to your one. Add the values for and aws
 
 Second: Run the development server:
 
@@ -50,11 +50,6 @@ npx playwright test --ui
 npx playwright codegen
 ```
 
-## OpenAI usage
-
-Take care with generating images in dev. By default, it will not call openAI as this cost money.
-Changing your node env to production or test will enable this.
-
 ### Husky pre-commit hook not being called ?
 
 Make sure the pre-commit hook is allowed to execute with `chmod ug+x .husky/pre-commit`
@@ -96,4 +91,7 @@ Pino for logging
 
 * simplicity and works both on client and server logging
 
-Jest for testing
+Vitest for testing
+
+* Faster than jest and more supported
+

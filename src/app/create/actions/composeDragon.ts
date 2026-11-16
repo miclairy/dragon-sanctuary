@@ -5,40 +5,43 @@ import { Prisma } from '@/generated/prisma/client';
 import { readFile } from 'fs/promises';
 import DragonCreateInput = Prisma.DragonCreateInput;
 
-const FOLDER_DRAGON_PARTS = 'public/dragonParts/';
+const FOLDER_DRAGON_PARTS = 'public/dragonParts/mountain/';
 
 export const composeDragon = async (dragon: DragonCreateInput) => {
-  const parts = [];
-  if (dragon.horns >= 1) {
-      parts.push('horn-01');
-  }
-  if (dragon.horns >= 2) {
-      parts.push('horn-02');
-  }
-  if (dragon.horns >= 3) {
-      parts.push('horn-03');
-  }
-  if (dragon.horns >= 4) {
-      parts.push('horn-04');
-  }
-  if (dragon.legs >= 2) {
-      parts.push('legs-2');
-  }
-  if (dragon.legs >= 4) {
-      parts.push('legs-4');
-  }
-  if (dragon.legs >= 8) {
-      parts.push('legs-8');
-  }
-  parts.push('wings');
+    const parts = [];
+    if (dragon.horns >= 1) {
+        parts.push('horn-01');
+    }
+    if (dragon.horns >= 2) {
+        parts.push('horn-02');
+    }
+    if (dragon.horns >= 3) {
+        parts.push('horn-03');
+    }
+    if (dragon.horns >= 4) {
+        parts.push('horn-04');
+    }
+    if (dragon.legs >= 2) {
+        parts.push('legs-2');
+    }
+    if (dragon.legs >= 4) {
+        parts.push('legs-4');
+    }
+    if (dragon.legs >= 8) {
+        parts.push('legs-8');
+    }
+    if (dragon.wings) {
+        parts.push('winged-body');
+    } else {
+        parts.push('spinning-tail-body');
+    }
 
-    console.log('pancake', dragon.color);
     return await compositeSVGs(parts, dragon.color, dragon.eyeColor);
 };
 
 async function compositeSVGs(svgs: string[], colour: string, eyeColour: string) {
     try {
-        const rawBaseSvg = await readFile(`${FOLDER_DRAGON_PARTS}base.svg`, 'utf8');
+        const rawBaseSvg = await readFile(`${FOLDER_DRAGON_PARTS}head.svg`, 'utf8');
         const baseSvg = rawBaseSvg.replaceAll('#ffffff', eyeColour)
 
         let layers = '';

@@ -16,6 +16,5 @@ export const Footer = () => (
         <a href="https://www.svgrepo.com/" target="_blank" rel="noreferrer">
             SVG Repo
         </a>
-        <p>Powered By openAI</p>
     </footer>
 );
