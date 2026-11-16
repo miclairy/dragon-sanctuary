@@ -36,7 +36,7 @@ export const getColourOptions = (): { title: string; value: string }[] => {
         },
         {
             title: 'Black',
-            value: Color.hsv(0, 0, getRandomInt(0, 10)).hex(),
+            value: Color.hsv(0, 0, getRandomInt(5, 15)).hex(),
         },
     ];
 };
